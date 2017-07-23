@@ -29,16 +29,57 @@
                     android:layout_width="600dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="352dp"
-                    android:layout_marginStart="352dp">
+                    android:layout_marginLeft="400dp"
+                    android:layout_marginStart="400dp">
                 </TableLayout>
 
                 <Button
-                    android:id="@+id/submitButton"
+                    android:id="@+id/editButton"
+                    android:text="Edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="140dp"
+                    android:layout_height="70dp"
+                    android:width="70dp"
+                    android:height="40dp"
                     android:text="Submit"
-                    android:layout_marginLeft="372dp"/>
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="Thue"/>
+
+                <RadioGroup
+                    android:id="@+id/TaxRadioButtonGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/NOradioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Khong"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="170dp"
+                        android:layout_marginLeft="31dp"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                    <RadioButton
+                        android:id="@+id/YESradioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Co"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="31dp"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+                </RadioGroup>
             </RelativeLayout>
     </ScrollView>
 

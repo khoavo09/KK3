@@ -12,7 +12,7 @@ public class Order extends Item implements Parcelable{
     int Tax;
     double grandTotal;
 
-    public int Tax() {
+    public int getTax() {
         return Tax;
     }
 

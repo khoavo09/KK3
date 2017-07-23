@@ -7,28 +7,8 @@
     tools:context="com.example.khoavo.kk3.MainActivity">
 
     <LinearLayout
-        android:id="@+id/ButtonLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/MenuLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1">
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/MenuLayout"
-        android:layout_width="600dp"
+        android:layout_width="800dp"
         android:layout_height="0dp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintBottom_creator="1"
@@ -38,9 +18,9 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="352dp"
+        android:layout_marginLeft="5dp"
         app:layout_constraintVertical_bias="1.0"
-        android:layout_marginStart="352dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
 

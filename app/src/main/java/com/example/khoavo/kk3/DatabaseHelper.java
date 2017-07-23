@@ -67,47 +67,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void insertData(Item item){
+    public boolean insertData(Item item){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_NAME,item.getName()); // Item Name
         values.put(KEY_PRICE,item.getPrice()); // Item Price
 
-        //Inserting Row
+        Cursor cur = db.query(TABLE_ITEMS, null, "NAME = ? AND PRICE = ?",
+                new String[] {item.getName(),Double.toString(item.getPrice())}
+                , null, null, null, null);
+        if (cur != null && cur.getCount()>0) {
+            // duplicate found
+            return false;
+        }
         db.insert(TABLE_ITEMS,null,values);
         db.close();
-
-/*
-        if(isEmpty(db)) {
-            long result = db.insert(TABLE_NAME, null, contentValues);
-            if (result == -1)
-                return false;
-            else
-                return true;
-        }
-        */
-   /*     else{
-            Cursor cursor = db.query(TABLE_NAME, new String[] {COL_1,COL_2,COL_3}, COL_2 + "=?",new String[] {name},null,null,null,null);
-            //Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-            //while(cursor.moveToNext()){
-
-            //}
-            if(cursor == null) {
-
-                long result = db.insert(TABLE_NAME, null, contentValues);
-                if (result == -1)
-                    return false;
-                else
-                    return true;
-            }
-            else{
-                Log.i("That's good", "I'm here");
-                return false;
-            }
-
-        }
-*/
+        return true;
 
      }
 

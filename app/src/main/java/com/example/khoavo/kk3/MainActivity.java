@@ -1,5 +1,6 @@
 package com.example.khoavo.kk3;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +19,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper myDb;
-    public static Bundle myBundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // Inserting Contacts
-        myDb.clearDatabase();
-        Log.d("Insert: ", "Inserting ..");
-        myDb.insertData(new Item("Ravi", 80.5));
-        myDb.insertData(new Item("Srinivas", 20));
-        myDb.insertData(new Item("Tommy", 15));
-        myDb.insertData(new Item("Karthik", 33));
-        myDb.insertData(new Item("Kim", 23));
+        // Inserting items
+        try {
+            myDb.insertData(new Item("Com", 10));
+            myDb.insertData(new Item("Ga Mieng", 27));
+            myDb.insertData(new Item("Com Suon", 35));
+            myDb.insertData(new Item("Mieng Ga", 37));
+            myDb.insertData(new Item("Chao Ga", 35));
+            myDb.insertData(new Item("Bo Ne", 45));
+            myDb.insertData(new Item("Mi Xao Bo", 60));
+        }
+        catch (SQLiteConstraintException e){
+            Log.d("Insert: ", "ERROR");
+            e.printStackTrace();
+
+        }
 
         // Reading all contacts
         Log.d("Reading: ", "Reading all items..");
@@ -50,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-       // myDb.clearDatabase();
-
 
         MenuFragment menuFragment = new MenuFragment();
         FragmentManager manager = getSupportFragmentManager();
@@ -60,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         //DetailsFragment detailsFragment = new DetailsFragment();
         //manager.beginTransaction().replace(R.id.DetailsLayout,detailsFragment,detailsFragment.getTag()).commit();
 
-        ButtonFragment buttonFragment = new ButtonFragment();
-        manager.beginTransaction().replace(R.id.ButtonLayout, buttonFragment,buttonFragment.getTag()).commit();
+      //  ButtonFragment buttonFragment = new ButtonFragment();
+      //  manager.beginTransaction().replace(R.id.ButtonLayout, buttonFragment,buttonFragment.getTag()).commit();
     }
 
     @Override
