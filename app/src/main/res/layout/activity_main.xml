@@ -22,6 +22,79 @@
         app:layout_constraintVertical_bias="1.0"
         android:layout_marginStart="5dp"
         android:orientation="vertical">
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="#3d455b"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp">
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/table_main"
+                    android:layout_width="600dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="400dp"
+                    android:layout_marginStart="400dp">
+                </TableLayout>
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:text="Edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="140dp"
+                    android:layout_height="70dp"
+                    android:width="70dp"
+                    android:height="40dp"
+                    android:text="Submit"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="Thue"/>
+
+                <RadioGroup
+                    android:id="@+id/TaxRadioButtonGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/NOradioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Khong"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="170dp"
+                        android:layout_marginLeft="31dp"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                    <RadioButton
+                        android:id="@+id/YESradioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Co"
+                        android:textColor="@color/colorWhite"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="31dp"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+                </RadioGroup>
+            </RelativeLayout>
+        </ScrollView>
 
 
     </LinearLayout>
