@@ -39,7 +39,7 @@ public class DetailsFragment extends Fragment {
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice;
-    ArrayList<Order> order;
+    Order myOrder;
     // needed for communication to bluetooth device / network
     OutputStream mmOutputStream;
     InputStream mmInputStream;
@@ -295,7 +295,7 @@ public class DetailsFragment extends Fragment {
 
 
 
-    public double CalculateTax(Double total){
+  /*  public double CalculateTax(Double total){
         return total * 0.5;
     }
 
@@ -316,7 +316,7 @@ public class DetailsFragment extends Fragment {
         }
         else
             return total;
-    }
+    }*/
 
 
 
@@ -324,14 +324,16 @@ public class DetailsFragment extends Fragment {
     public void display(View v){
         Bundle bundle = getArguments();
         if(bundle!= null) {
-            order = getArguments().getParcelableArrayList("ORDER");
-            int Tax = order.get(0).getTax();
-            double total = CalculateTotal(order,Tax);
+            myOrder = getArguments().getParcelable("ORDER");
+            int Tax = myOrder.getTax();
+            myOrder.CalculateTotal();
+            double total = myOrder.getGrandTotal();
+            ArrayList<Item> localOrder = myOrder.getItemList();
             detailsTextView = (TextView)v.findViewById(R.id.textViewDetails);
-            for(int i=0; i < order.size();i++)
-                detailsTextView.append(order.get(i).getName().toString() + " " +
-                        Double.toString(order.get(i).getPrice()) + " " +
-                        Integer.toString(order.get(i).getAmount()) + "\n");
+            for(int i=0; i < localOrder.size();i++)
+                detailsTextView.append(localOrder.get(i).getName().toString() + " " +
+                        Double.toString(localOrder.get(i).getPrice()) + " " +
+                        Integer.toString(localOrder.get(i).getAmount()) + "\n");
 
             detailsTextView.append("Total: " + Double.toString(total));
         }

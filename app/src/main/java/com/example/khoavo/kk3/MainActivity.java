@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice;
-    ArrayList<Order> order;
+    private Order myOrder;
     // needed for communication to bluetooth device / network
     OutputStream mmOutputStream;
     InputStream mmInputStream;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Bundle bundle = new Bundle();
-                ArrayList<Order> OrderList = new ArrayList<>();
+                myOrder = new Order();
 
                 String[] strings = new String[amountED.size()];
 
@@ -118,20 +118,19 @@ public class MainActivity extends AppCompatActivity {
                     if (!strings[i].isEmpty()) {
                         int amount = Integer.parseInt(strings[i]);
                         Item item = myDb.getItem(i + 1);
+                        item.setAmount(amount);
                         Order order = new Order(item.getID(), item.getName(), item.getPrice(), amount);
                         if(!NoTaxRadioButton.isChecked()){
                             order.setTax(1);
                         }
-                        OrderList.add(order);
+                        myOrder.addItem(item);
                     }
 
                     //  bundle.putString("number", strings[i]);
                 }
 
-                if(OrderList.size() >0 ) {
-                    //DetailsFragment detailsFragment;
-                    bundle.putParcelableArrayList("ORDER", OrderList);
-                    //detailsFragment.setArguments(bundle);
+                if(myOrder.getCount() >0 ) {
+                    bundle.putParcelable("ORDER",myOrder);
                     FragmentManager manager = getSupportFragmentManager();
                     //FragmentTransaction
                     FragmentTransaction ft = manager.beginTransaction();
@@ -173,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-       // display();
 
         // send data typed by the user to be printed
         sendButton = (Button)findViewById(R.id.PrintButton);
@@ -353,28 +351,32 @@ public class MainActivity extends AppCompatActivity {
             header += ("Date: " + s + "\n") ;
 
 
-       /*     String printString ="";
+            String printString ="";
             int i =0;
-            for(Order temp: order) {
-                String orderDetails = order.get(i).getName() + "  " + order.get(i).getAmount();
+            ArrayList<Item> localOrder = myOrder.getItemList();
+
+            for(Item temp: localOrder) {
+                String orderDetails = localOrder.get(i).getName() + "  " + localOrder.get(i).getAmount();
                 orderDetails += "\n";
                 printString += orderDetails;
                 i++;
             }
 
-            String orderTotal = "Total: " + Double.toString(CalculateTotal(order,order.get(0).getTax())) + "\n";
-            if(order.get(0).getTax() == 0){
+            //Fix this later
+            myOrder.CalculateTotal();
+            String orderTotal = "Total: " + Double.toString(myOrder.getGrandTotal()) + "\n";
+          //  if(myOrder.get(0).getTax() == 0){
 
-            }
-            else{
+          //  }
+         //   else{
                 // orderTotal += ("Tax: " + Double.toString(CalculateTax()));
-            }
+        //    }
             String PRINTME = header + printString + orderTotal;
 
-            byte[] center = new byte[]{ 0x1b, 0x61, 0x01 };*/
+            byte[] center = new byte[]{ 0x1b, 0x61, 0x01 };
             Toast.makeText(getApplicationContext(), "sendData", Toast.LENGTH_SHORT).show();
-           // mmOutputStream.write( center );
-            mmOutputStream.write(header.getBytes());
+            mmOutputStream.write( center );
+            mmOutputStream.write(PRINTME.getBytes());
 
 
             // tell the user data were sent
@@ -402,29 +404,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public double CalculateTax(Double total){
-        return total * 0.5;
-    }
-
-
-    public double CalculateTotal (ArrayList<Order> order, int Tax){
-        double total = 0;
-        double value;
-
-
-        for(int i =0; i < order.size();i++){
-            value = (order.get(i).getPrice())  * order.get(i).getAmount();
-            total += value;
-        }
-
-        if(Tax==1) {
-            total = total + (total * 0.1);
-            return total;
-        }
-        else
-            return total;
-    }
-
 
 
 
@@ -442,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
         //tv1.setWidth(400);
         tv1.setText(" NAME ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
-        tv1.setTextColor(Color.WHITE);
+        tv1.setTextColor(Color.RED);
         tbrow0.addView(tv1);
         TextView tv2 = new TextView(this);
         tv2.setText(" Unit Price ");

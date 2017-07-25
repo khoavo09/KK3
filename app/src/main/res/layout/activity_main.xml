@@ -6,117 +6,45 @@
     android:layout_height="match_parent"
     tools:context="com.example.khoavo.kk3.MainActivity">
 
+
     <LinearLayout
         android:id="@+id/MenuLayout"
         android:layout_width="800dp"
-        android:layout_height="0dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"
-        tools:layout_constraintLeft_creator="1"
+        android:layout_height="500dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="5dp"
-        app:layout_constraintVertical_bias="1.0"
-        android:layout_marginStart="5dp"
-        android:orientation="vertical">
+        app:layout_constraintVertical_bias="0.945"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1">
+
         <ScrollView
             android:id="@+id/scrollView1"
+            android:layout_width="600dp"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:background="#3d455b"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="0dp">
+            android:layout_marginStart="250dp">
 
             <RelativeLayout
                 android:id="@+id/RelativeLayout1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
+                android:layout_width="600dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TableLayout
                     android:id="@+id/table_main"
                     android:layout_width="600dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="400dp"
-                    android:layout_marginStart="400dp">
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true">
+
                 </TableLayout>
 
-                <Button
-                    android:id="@+id/editButton"
-                    android:text="Edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/submitButton"
-                    android:layout_width="140dp"
-                    android:layout_height="70dp"
-                    android:width="70dp"
-                    android:height="40dp"
-                    android:text="Submit"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <Button
-                    android:id="@+id/PrintButton"
-                    android:text="PRINT PLEASE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="300dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <Button
-                    android:id="@+id/CloseButton"
-                    android:text="CLOSE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="350dp"
-                    android:layout_marginLeft="20dp"/>
-
-                <TextView
-                    android:id="@+id/label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PRINTER"
-                    android:layout_marginTop="390dp"
-                    android:layout_marginLeft="20dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="150dp"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/colorWhite"
-                    android:text="Thue"/>
-
-                <RadioGroup
-                    android:id="@+id/TaxRadioButtonGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <RadioButton
-                        android:id="@+id/NOradioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Khong"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginTop="170dp"
-                        android:layout_marginLeft="31dp"
-                        app:layout_constraintLeft_toLeftOf="parent" />
-
-                    <RadioButton
-                        android:id="@+id/YESradioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Co"
-                        android:textColor="@color/colorWhite"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="31dp"
-                        app:layout_constraintLeft_toLeftOf="parent" />
-                </RadioGroup>
             </RelativeLayout>
         </ScrollView>
 
@@ -139,6 +67,95 @@
 
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/PrintButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="300dp"
+            android:text="PRINT PLEASE" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:width="70dp"
+            android:height="40dp"
+            android:text="Submit"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/CloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="350dp"
+            android:text="CLOSE" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="390dp"
+            android:text="PRINTER" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="150dp"
+            android:text="Thue"
+            android:textColor="@color/colorWhite" />
+
+        <RadioGroup
+            android:id="@+id/TaxRadioButtonGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/NOradioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:layout_marginTop="170dp"
+                android:text="Khong"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <RadioButton
+                android:id="@+id/YESradioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:layout_marginTop="20dp"
+                android:text="Co"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </RadioGroup>
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

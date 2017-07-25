@@ -9,6 +9,8 @@ public class Item {
     int ID;
     String Name;
     double Price;
+    int Amount;
+
 
     public Item(){
 
@@ -24,6 +26,14 @@ public class Item {
 
         Name = name;
         Price = price;
+    }
+
+    public int getAmount() {
+        return Amount;
+    }
+
+    public void setAmount(int amount) {
+        Amount = amount;
     }
 
     public int getID() {
