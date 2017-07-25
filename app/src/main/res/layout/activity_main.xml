@@ -61,6 +61,30 @@
                     android:text="Submit"
                     android:layout_marginTop="50dp"
                     android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:id="@+id/PrintButton"
+                    android:text="PRINT PLEASE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="300dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <Button
+                    android:id="@+id/CloseButton"
+                    android:text="CLOSE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="350dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:id="@+id/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRINTER"
+                    android:layout_marginTop="390dp"
+                    android:layout_marginLeft="20dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

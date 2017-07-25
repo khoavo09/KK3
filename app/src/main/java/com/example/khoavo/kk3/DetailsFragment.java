@@ -40,7 +40,6 @@ public class DetailsFragment extends Fragment {
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice;
     ArrayList<Order> order;
-
     // needed for communication to bluetooth device / network
     OutputStream mmOutputStream;
     InputStream mmInputStream;
@@ -49,6 +48,8 @@ public class DetailsFragment extends Fragment {
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
+
+
     public DetailsFragment() {
         // Required empty public constructor
     }
@@ -61,14 +62,15 @@ public class DetailsFragment extends Fragment {
         // Inflate the layout for this fragment
          View v = inflater.inflate(R.layout.fragment_details, container, false);
         myLabel = (TextView)v.findViewById(R.id.label);
-
+        display(v);
+/*
         try {
             findBT();
             openBT();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        display(v);
+
 
         // send data typed by the user to be printed
         sendButton = (Button)v.findViewById(R.id.PrintButton);
@@ -93,12 +95,14 @@ public class DetailsFragment extends Fragment {
                 }
             }
         });
+
+        */
         return v;
     }
 
 
     // this will find a bluetooth printer device
-    void findBT() {
+   /* void findBT() {
 
         try {
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -287,7 +291,7 @@ public class DetailsFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
+*/
 
 
 
