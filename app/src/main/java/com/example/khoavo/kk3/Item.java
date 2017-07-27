@@ -16,6 +16,10 @@ public class Item {
 
     }
 
+    public Item(String name) {
+        Name = name;
+    }
+
     public Item(String name, double price) {
         Name = name;
         Price = price;

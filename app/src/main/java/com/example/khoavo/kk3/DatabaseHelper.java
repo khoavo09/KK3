@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +88,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
      }
 
+     public int updateData(Item item){
+         SQLiteDatabase db = this.getWritableDatabase();
+         String id = Integer.toString(item.getID());
+         ContentValues values = new ContentValues();
+         values.put(KEY_NAME,item.getName());
+         values.put(KEY_PRICE,item.getPrice());
+
+       //  db.update(TABLE_ITEMS,values,"id = ?" + id, new String[] { String.valueOf(item.getName()) });
+         int temp = db.update(TABLE_ITEMS, values,  KEY_NAME+ " =? ", new String[] { item.getName()});
+         return temp;
+     }
+
      public boolean isEmpty(SQLiteDatabase db){
          Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ITEMS, null);
 
@@ -134,18 +147,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return itemList;
     }
 
-    // Updating single contact
-    public int updateContact(Item item) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, item.getName());
-        values.put(KEY_PRICE, item.getPrice());
-
-        // updating row
-        return db.update(TABLE_ITEMS, values, KEY_ID + " = ?",
-                new String[] { String.valueOf(item.getName()) });
-    }
 
     // Getting items Count
     public int getItemsCount() {
@@ -159,9 +160,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Deleting single contact
-    public void deleteContact(Item item) {
+    public void deleteItem(Item item) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_ITEMS, KEY_ID + " = ?",
+        db.delete(TABLE_ITEMS, KEY_NAME + " = ?",
                 new String[] { String.valueOf(item.getName()) });
         db.close();
     }

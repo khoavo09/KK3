@@ -72,22 +72,26 @@ public class MainActivity extends AppCompatActivity {
         myDb = DatabaseHelper.newInstance(this);
 
 
+        //myDb.clearDatabase();
 
         // Inserting items
         try {
-            myDb.insertData(new Item("Com", 10));
+       /*     myDb.insertData(new Item("Com", 10));
             myDb.insertData(new Item("Ga Mieng", 27));
             myDb.insertData(new Item("Com Suon", 35));
             myDb.insertData(new Item("Mieng Ga", 37));
             myDb.insertData(new Item("Chao Ga", 35));
             myDb.insertData(new Item("Bo Ne", 45));
-            myDb.insertData(new Item("Mi Xao Bo", 60));
+            myDb.insertData(new Item("Mi Xao Bo", 60));*/
         }
         catch (SQLiteConstraintException e){
             Log.d("Insert: ", "ERROR");
             e.printStackTrace();
 
         }
+
+       // myDb.updateData(new Item("Com", 92));
+      //  myDb.updateContact(new Item("Com", 92));
 
         init();
 
