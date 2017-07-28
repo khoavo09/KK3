@@ -13,7 +13,7 @@ public class Order implements Parcelable{
 
     int tax;
     double grandTotal;
-    ArrayList<Item> itemList = new ArrayList<>();
+    ArrayList<Item> itemList = new ArrayList<Item>();
     int count;
 
     public int getTax() {
@@ -56,7 +56,8 @@ public class Order implements Parcelable{
        // Amount = in.readInt();
         tax = in.readInt();
         grandTotal = in.readDouble();
-        itemList = in.readArrayList(null);
+        in.readTypedList(itemList,Item.CREATOR);
+      //  itemList = in.readArrayList(null);
       //  itemList = in.readTypedList(yourList, YourParcelable.CREATOR);
     }
 
@@ -106,7 +107,7 @@ public class Order implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {;
         dest.writeInt(tax);
         dest.writeDouble(grandTotal);
-        dest.writeList(itemList);
+        dest.writeTypedList(itemList);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class Order implements Parcelable{
         return 0;
     }
 
-    public static final Creator<Order> CREATOR = new Creator<Order>() {
+    public static final Parcelable.Creator<Order> CREATOR = new Parcelable.Creator<Order>() {
         @Override
         public Order createFromParcel(Parcel in) {
             return new Order(in);

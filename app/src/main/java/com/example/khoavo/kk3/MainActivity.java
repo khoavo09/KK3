@@ -379,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
 
             byte[] center = new byte[]{ 0x1b, 0x61, 0x01 };
             Toast.makeText(getApplicationContext(), "sendData", Toast.LENGTH_SHORT).show();
+            
             mmOutputStream.write( center );
             mmOutputStream.write(PRINTME.getBytes());
 

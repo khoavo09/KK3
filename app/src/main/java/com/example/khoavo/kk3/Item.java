@@ -1,11 +1,14 @@
 package com.example.khoavo.kk3;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by khoavo on 7/8/17.
  */
 
-public class Item {
+public class Item implements Parcelable {
     int ID;
     String Name;
     double Price;
@@ -14,10 +17,6 @@ public class Item {
 
     public Item(){
 
-    }
-
-    public Item(String name) {
-        Name = name;
     }
 
     public Item(String name, double price) {
@@ -31,6 +30,18 @@ public class Item {
         Name = name;
         Price = price;
     }
+
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     public int getAmount() {
         return Amount;
@@ -64,5 +75,25 @@ public class Item {
         Price = price;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ID);
+        dest.writeString(Name);
+        dest.writeDouble(Price);
+        dest.writeInt(Amount);
+
+    }
+
+    protected Item(Parcel in){
+        ID = in.readInt();
+        Name = in.readString();
+        Price = in.readDouble();
+        Amount = in.readInt();
+    }
 }
 

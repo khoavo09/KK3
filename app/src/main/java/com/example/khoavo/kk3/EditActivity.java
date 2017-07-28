@@ -42,7 +42,7 @@ public class EditActivity extends AppCompatActivity {
                         Double price = Double.parseDouble(PriceED.get(i).getText().toString());
                         Item localItem = new Item(name, price);
                         //itemList.add(localItem);
-                        if(price == -99)
+                        if(price == 999.999)
                             myDb.deleteItem(localItem);
                         else {
                             int flag = myDb.updateData(localItem);
@@ -52,9 +52,8 @@ public class EditActivity extends AppCompatActivity {
 
                     }
                 }
-               // myDb.deleteItem(new Item ("Kem"));
-                Intent intent = new Intent(EditActivity.this,MainActivity.class);
-                EditActivity.this.startActivity(intent);
+               // Intent intent = new Intent(EditActivity.this,MainActivity.class);
+               // EditActivity.this.startActivity(intent);
             }
         });
 
