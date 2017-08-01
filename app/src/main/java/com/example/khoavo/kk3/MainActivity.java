@@ -3,12 +3,15 @@ package com.example.khoavo.kk3;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                         item.setAmount(amount);
                         Order order = new Order(item.getID(), item.getName(), item.getPrice(), amount);
                         if(!NoTaxRadioButton.isChecked()){
-                            order.setTax(1);
+                            myOrder.setisTax(1);
                         }
                         myOrder.addItem(item);
                     }
@@ -181,11 +185,44 @@ public class MainActivity extends AppCompatActivity {
         sendButton = (Button)findViewById(R.id.PrintButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try {
-                    sendData();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            context);
+
+                    // set title
+                    alertDialogBuilder.setTitle("Printing confirmation");
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage("Do you want to print?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+                                    try {
+                                    sendData();
+                                        for (int i=0;i< amountED.size();i++){
+                                            amountED.get(i).setText("");
+                                        }
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, just close
+                                    // the dialog box and do nothing
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
             }
         });
 
@@ -346,45 +383,120 @@ public class MainActivity extends AppCompatActivity {
     void sendData() throws IOException {
         try {
 
+            mmOutputStream.flush();
             // the text typed by the user
             DateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
             Date today = new Date();
             String s = dateFormatter.format(today);
-            String header = "COM GA KHANH KY\n"
-                    +"Dia Chi: 61 Tran Quang Dieu \n" ;
-            header += ("Date: " + s + "\n") ;
+            String header = "COM GA KHANH KY\n";
+            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
+            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x08 } ); //bold
+            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x20 } ); //width
+            mmOutputStream.write(header.getBytes());
+
+            header = "Dia Chi: 61 Tran Quang Dieu \n" ;
+            header += (s + "\n") ;
+            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
+            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x00 } ); //default
+            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x08 } ); //bold
+            mmOutputStream.write(header.getBytes());
+
+
+            mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
+
+          //  mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x08 } ); //bold
+            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x20 } ); //width
+            mmOutputStream.write(String.format("PHIEU TINH TIEN\n").getBytes());
+            mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
 
 
             String printString ="";
             int i =0;
             ArrayList<Item> localOrder = myOrder.getItemList();
+            String label = String.format("%-5s%-20s%5s%4s%9s", "STT","Ten Hang", "DG", "SL", "T.Tien\n");
+            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x00 } ); //left justification
+            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x00 } );
+            mmOutputStream.write(label.getBytes());
 
+            String orderDetails;
             for(Item temp: localOrder) {
-                String orderDetails = localOrder.get(i).getName() + "  " + localOrder.get(i).getAmount();
-                orderDetails += "\n";
-                printString += orderDetails;
+               // String orderDetails = localOrder.get(i).getName() + localOrder.get(i).getPrice() + localOrder.get(i).getAmount();
+               // orderDetails += "\r\n";
+              //  printString += orderDetails;
+                orderDetails = String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
+                        localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal());
+
+                mmOutputStream.write(orderDetails.getBytes());
                 i++;
             }
 
             //Fix this later
             myOrder.CalculateTotal();
-            String orderTotal = "Total: " + Double.toString(myOrder.getGrandTotal()) + "\n";
+            String orderTotal="";// = "Total: " + Double.toString(myOrder.getGrandTotal()) + "\n";
+
+            orderTotal += ("----------------------------------------------\n");
+            if(myOrder.getIsTax() == 1) {
+                orderTotal += (String.format("Cong: %37.1f\n", myOrder.getGrandTotal_beforeTax()));
+                orderTotal += (String.format("Thue: %37.1f\n", myOrder.getTax()));
+            }
+
+            orderTotal +=(String.format("Tong Cong: %32.1f\n", myOrder.getGrandTotal()));
+            orderTotal += ("----------------------------------------------\n");
+            mmOutputStream.write(orderTotal.getBytes());
+
+            mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
+            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
+            mmOutputStream.write("Cam on va hen gap lai quy khach".getBytes());
+            mmOutputStream.write(new byte[]{(byte)0x0A});
+            mmOutputStream.write(new byte[]{(byte)0x0A});
+            mmOutputStream.write(new byte[]{(byte)0x0A});
+            mmOutputStream.write(new byte[]{(byte)0x0A});
+            mmOutputStream.write(new byte[]{(byte)0x0A});
+
+
           //  if(myOrder.get(0).getTax() == 0){
 
           //  }
          //   else{
                 // orderTotal += ("Tax: " + Double.toString(CalculateTax()));
         //    }
-            String PRINTME = header + printString + orderTotal;
+            String PRINTME = printString + orderTotal;
 
-            byte[] center = new byte[]{ 0x1b, 0x61, 0x01 };
+            //byte[] arrayOfByte1 = { 27, 33, 0 };
+           // byte[] format = ;
+           // format[2] = ((byte)(0x80 | arrayOfByte1[2]));
+
+           // String temp = String.format("%5s%17s%6s\n","A","WOO HOO", "BYE");
+
+
+
+
+           // mmOutputStream.write(format);
+          //  mmOutputStream.write(temp.getBytes());
+
+
+
+
+
+            //format[2] = 3;
+           // String name = localOrder.get(i).getName();
+           // String price = Double.toString(localOrder.get(i).getPrice());
+            //        + localOrder.get(i).getAmount();
+           // mmOutputStream.write(new byte[]{(byte)0x0A});
+          // String temp ="COM GA";
+            //byte[] format2 = new byte[]{ (byte)0x1B, (byte)0x24, (byte)0x40,(byte)0x60  };
+          //  mmOutputStream.write( format );
+          //  mmOutputStream.write(temp.getBytes());
+
+            //temp = "33";
+           // mmOutputStream.write(new byte[]{ (byte)0x1B, (byte)0x24, (byte)0x20,(byte)0x20  });
+           // mmOutputStream.write(String.format("HELL NAH").getBytes());
             Toast.makeText(getApplicationContext(), "sendData", Toast.LENGTH_SHORT).show();
-            
-            mmOutputStream.write( center );
-            mmOutputStream.write(PRINTME.getBytes());
-
+           // mmOutputStream.write( format );
+           // mmOutputStream.write(header.getBytes());
 
             // tell the user data were sent
+            mmOutputStream.flush();
               myLabel.setText("Data sent.");
 
         } catch (Exception e) {

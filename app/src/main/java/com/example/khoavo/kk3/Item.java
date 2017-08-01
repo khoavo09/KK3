@@ -13,6 +13,7 @@ public class Item implements Parcelable {
     String Name;
     double Price;
     int Amount;
+    double subTotal;
 
 
     public Item(){
@@ -26,7 +27,6 @@ public class Item implements Parcelable {
 
     public Item(int id, String name, double price) {
         ID = id;
-
         Name = name;
         Price = price;
     }
@@ -43,12 +43,21 @@ public class Item implements Parcelable {
         }
     };
 
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
     public int getAmount() {
         return Amount;
     }
 
     public void setAmount(int amount) {
         Amount = amount;
+        calculateSubTotal();
     }
 
     public int getID() {
@@ -75,6 +84,10 @@ public class Item implements Parcelable {
         Price = price;
     }
 
+    private void calculateSubTotal(){
+        subTotal = Amount * Price;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,6 +99,7 @@ public class Item implements Parcelable {
         dest.writeString(Name);
         dest.writeDouble(Price);
         dest.writeInt(Amount);
+        dest.writeDouble(subTotal);
 
     }
 
@@ -94,6 +108,8 @@ public class Item implements Parcelable {
         Name = in.readString();
         Price = in.readDouble();
         Amount = in.readInt();
+        subTotal = in.readDouble();
+
     }
 }
 

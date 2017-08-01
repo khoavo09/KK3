@@ -11,25 +11,32 @@ import java.util.ArrayList;
 
 public class Order implements Parcelable{
 
-    int tax;
+    int isTax;
+    double tax;
+    double grandTotal_beforeTax;
     double grandTotal;
     ArrayList<Item> itemList = new ArrayList<Item>();
     int count;
 
-    public int getTax() {
+    public double getTax() {
+        calculateTax();
         return tax;
     }
 
-    public void setTax(int tax) {
-        this.tax = tax;
+    public int getIsTax() {
+        return isTax;
+    }
+
+    public void setisTax(int tax) {
+        this.isTax = tax;
     }
 
     public double getGrandTotal() {
         return grandTotal;
     }
 
-    public void setGrandTotal(double grandTotal) {
-        this.grandTotal = grandTotal;
+    public double getGrandTotal_beforeTax() {
+        return grandTotal_beforeTax;
     }
 
     public ArrayList<Item> getItemList() {
@@ -49,16 +56,10 @@ public class Order implements Parcelable{
     }
 
     protected Order(Parcel in) {
-        //super(in);
-       // ID = in.readInt();
-       // Name = in.readString();
-       // Price = in.readDouble();
-       // Amount = in.readInt();
-        tax = in.readInt();
+        isTax = in.readInt();
+        tax = in.readDouble();
         grandTotal = in.readDouble();
         in.readTypedList(itemList,Item.CREATOR);
-      //  itemList = in.readArrayList(null);
-      //  itemList = in.readTypedList(yourList, YourParcelable.CREATOR);
     }
 
     public Order (){
@@ -80,12 +81,12 @@ public class Order implements Parcelable{
             return false;
     }
 
-    public double CalculateTax(){
-        return grandTotal * 0.5;
+    public void calculateTax(){
+        tax = grandTotal * 0.01;
     }
 
 
-    public double CalculateTotal (){
+    public void CalculateTotal (){
         grandTotal = 0;
         double value;
 
@@ -94,18 +95,17 @@ public class Order implements Parcelable{
             value = (itemList.get(i).getPrice())  * itemList.get(i).getAmount();
             grandTotal += value;
         }
+        grandTotal_beforeTax = grandTotal;
 
-        if(tax==1) {
-            grandTotal = grandTotal + (grandTotal * 0.1);
-            return grandTotal;
+        if(isTax==1) {
+            grandTotal = grandTotal + (grandTotal * 0.01);
         }
-        else
-            return grandTotal;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {;
-        dest.writeInt(tax);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(isTax);
+        dest.writeDouble(tax);
         dest.writeDouble(grandTotal);
         dest.writeTypedList(itemList);
     }

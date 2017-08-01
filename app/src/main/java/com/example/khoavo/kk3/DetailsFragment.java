@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -325,17 +326,25 @@ public class DetailsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle!= null) {
             myOrder = getArguments().getParcelable("ORDER");
-            int Tax = myOrder.getTax();
+            Double Tax = myOrder.getTax();
             myOrder.CalculateTotal();
-            double total = myOrder.getGrandTotal();
+           // double total = myOrder.getGrandTotal();
+            Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Consolas.ttf");
             ArrayList<Item> localOrder = myOrder.getItemList();
             detailsTextView = (TextView)v.findViewById(R.id.textViewDetails);
+            detailsTextView.setTypeface(tf);
+            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n"));
             for(int i=0; i < localOrder.size();i++)
-                detailsTextView.append(localOrder.get(i).getName().toString() + " " +
-                        Double.toString(localOrder.get(i).getPrice()) + " " +
-                        Integer.toString(localOrder.get(i).getAmount()) + "\n");
+                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
+                        localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal()));
 
-            detailsTextView.append("Total: " + Double.toString(total));
+            detailsTextView.append("-------------------------------------------------------\n");
+            if(myOrder.getIsTax() == 1) {
+                detailsTextView.append(String.format("Cong: %37.1f\n", myOrder.getGrandTotal_beforeTax()));
+                detailsTextView.append(String.format("Thue: %37.1f\n", myOrder.getTax()));
+            }
+
+            detailsTextView.append(String.format("Tong Cong: %32.1f\n", myOrder.getGrandTotal()));
         }
     // put all the display crap here
     }

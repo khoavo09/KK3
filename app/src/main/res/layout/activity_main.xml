@@ -53,7 +53,7 @@
 
     <LinearLayout
         android:id="@+id/DetailsLayout"
-        android:layout_width="300dp"
+        android:layout_width="450dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
@@ -88,47 +88,49 @@
 
         <Button
             android:id="@+id/PrintButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="300dp"
-            android:text="PRINT PLEASE" />
+            android:background="@drawable/circle_button"
+            android:text="PRINT" />
 
         <Button
             android:id="@+id/submitButton"
-            android:layout_width="140dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="65dp"
             android:width="70dp"
-            android:height="40dp"
+            android:height="70dp"
             android:text="Submit"
+            android:background="@drawable/rounded_button"
             android:visibility="visible" />
 
         <Button
             android:id="@+id/CloseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="450dp"
             android:text="CLOSE" />
 
         <TextView
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="390dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="520dp"
             android:text="PRINTER" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="155dp"
             android:text="Thue"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorBlack" />
 
         <RadioGroup
             android:id="@+id/TaxRadioButtonGroup"
@@ -139,20 +141,20 @@
                 android:id="@+id/NOradioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
-                android:layout_marginTop="170dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="178dp"
                 android:text="Khong"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <RadioButton
                 android:id="@+id/YESradioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="31dp"
+                android:layout_marginStart="31dp"
                 android:layout_marginTop="20dp"
                 android:text="Co"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintLeft_toLeftOf="parent" />
         </RadioGroup>
     </RelativeLayout>

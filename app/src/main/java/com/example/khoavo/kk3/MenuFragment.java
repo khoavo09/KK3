@@ -74,7 +74,7 @@ public class MenuFragment extends Fragment {
                     Item item = myDb.getItem(i + 1);
                     Order order = new Order(item.getID(), item.getName(), item.getPrice(), amount);
                     if(!NoTaxRadioButton.isChecked()){
-                        order.setTax(1);
+                        order.setisTax(1);
                     }
                     OrderList.add(order);
                 }
