@@ -453,44 +453,11 @@ public class MainActivity extends AppCompatActivity {
             mmOutputStream.write(new byte[]{(byte)0x0A});
             mmOutputStream.write(new byte[]{(byte)0x0A});
 
-
-          //  if(myOrder.get(0).getTax() == 0){
-
-          //  }
-         //   else{
-                // orderTotal += ("Tax: " + Double.toString(CalculateTax()));
-        //    }
             String PRINTME = printString + orderTotal;
 
-            //byte[] arrayOfByte1 = { 27, 33, 0 };
-           // byte[] format = ;
-           // format[2] = ((byte)(0x80 | arrayOfByte1[2]));
-
-           // String temp = String.format("%5s%17s%6s\n","A","WOO HOO", "BYE");
 
 
 
-
-           // mmOutputStream.write(format);
-          //  mmOutputStream.write(temp.getBytes());
-
-
-
-
-
-            //format[2] = 3;
-           // String name = localOrder.get(i).getName();
-           // String price = Double.toString(localOrder.get(i).getPrice());
-            //        + localOrder.get(i).getAmount();
-           // mmOutputStream.write(new byte[]{(byte)0x0A});
-          // String temp ="COM GA";
-            //byte[] format2 = new byte[]{ (byte)0x1B, (byte)0x24, (byte)0x40,(byte)0x60  };
-          //  mmOutputStream.write( format );
-          //  mmOutputStream.write(temp.getBytes());
-
-            //temp = "33";
-           // mmOutputStream.write(new byte[]{ (byte)0x1B, (byte)0x24, (byte)0x20,(byte)0x20  });
-           // mmOutputStream.write(String.format("HELL NAH").getBytes());
             Toast.makeText(getApplicationContext(), "sendData", Toast.LENGTH_SHORT).show();
            // mmOutputStream.write( format );
            // mmOutputStream.write(header.getBytes());
