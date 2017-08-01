@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context="com.example.khoavo.kk3.MenuFragment"
     tools:layout_editor_absoluteY="89dp"
     tools:layout_editor_absoluteX="0dp">
@@ -48,7 +49,7 @@
                 android:text="Edit" />
 
             <Button
-                android:id="@+id/submitButton"
+                android:id="@+id/submitButtonEdit"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"

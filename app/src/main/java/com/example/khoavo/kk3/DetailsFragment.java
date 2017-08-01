@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -39,8 +40,7 @@ public class DetailsFragment extends Fragment {
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
     BluetoothDevice mmDevice;
-    ArrayList<Order> order;
-
+    Order myOrder;
     // needed for communication to bluetooth device / network
     OutputStream mmOutputStream;
     InputStream mmInputStream;
@@ -49,6 +49,8 @@ public class DetailsFragment extends Fragment {
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
+
+
     public DetailsFragment() {
         // Required empty public constructor
     }
@@ -61,14 +63,15 @@ public class DetailsFragment extends Fragment {
         // Inflate the layout for this fragment
          View v = inflater.inflate(R.layout.fragment_details, container, false);
         myLabel = (TextView)v.findViewById(R.id.label);
-
+        display(v);
+/*
         try {
             findBT();
             openBT();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        display(v);
+
 
         // send data typed by the user to be printed
         sendButton = (Button)v.findViewById(R.id.PrintButton);
@@ -93,12 +96,14 @@ public class DetailsFragment extends Fragment {
                 }
             }
         });
+
+        */
         return v;
     }
 
 
     // this will find a bluetooth printer device
-    void findBT() {
+   /* void findBT() {
 
         try {
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -287,11 +292,11 @@ public class DetailsFragment extends Fragment {
             e.printStackTrace();
         }
     }
+*/
 
 
 
-
-    public double CalculateTax(Double total){
+  /*  public double CalculateTax(Double total){
         return total * 0.5;
     }
 
@@ -312,7 +317,7 @@ public class DetailsFragment extends Fragment {
         }
         else
             return total;
-    }
+    }*/
 
 
 
@@ -320,16 +325,26 @@ public class DetailsFragment extends Fragment {
     public void display(View v){
         Bundle bundle = getArguments();
         if(bundle!= null) {
-            order = getArguments().getParcelableArrayList("ORDER");
-            int Tax = order.get(0).getTax();
-            double total = CalculateTotal(order,Tax);
+            myOrder = getArguments().getParcelable("ORDER");
+            Double Tax = myOrder.getTax();
+            myOrder.CalculateTotal();
+           // double total = myOrder.getGrandTotal();
+            Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Consolas.ttf");
+            ArrayList<Item> localOrder = myOrder.getItemList();
             detailsTextView = (TextView)v.findViewById(R.id.textViewDetails);
-            for(int i=0; i < order.size();i++)
-                detailsTextView.append(order.get(i).getName().toString() + " " +
-                        Double.toString(order.get(i).getPrice()) + " " +
-                        Integer.toString(order.get(i).getAmount()) + "\n");
+            detailsTextView.setTypeface(tf);
+            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n"));
+            for(int i=0; i < localOrder.size();i++)
+                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
+                        localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal()));
 
-            detailsTextView.append("Total: " + Double.toString(total));
+            detailsTextView.append("-------------------------------------------------------\n");
+            if(myOrder.getIsTax() == 1) {
+                detailsTextView.append(String.format("Cong: %37.1f\n", myOrder.getGrandTotal_beforeTax()));
+                detailsTextView.append(String.format("Thue: %37.1f\n", myOrder.getTax()));
+            }
+
+            detailsTextView.append(String.format("Tong Cong: %32.1f\n", myOrder.getGrandTotal()));
         }
     // put all the display crap here
     }
