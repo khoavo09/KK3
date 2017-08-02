@@ -338,13 +338,13 @@ public class DetailsFragment extends Fragment {
                 detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
                         localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal()));
 
-            detailsTextView.append("-------------------------------------------------------\n");
+            detailsTextView.append("-----------------------------------------\n");
             if(myOrder.getIsTax() == 1) {
-                detailsTextView.append(String.format("Cong: %37.1f\n", myOrder.getGrandTotal_beforeTax()));
-                detailsTextView.append(String.format("Thue: %37.1f\n", myOrder.getTax()));
+                detailsTextView.append(String.format("%25s %17.1f\n","Cong:", myOrder.getGrandTotal_beforeTax()));
+                detailsTextView.append(String.format("%25s %17.1f\n","Thue:", myOrder.getTax()));
             }
 
-            detailsTextView.append(String.format("Tong Cong: %32.1f\n", myOrder.getGrandTotal()));
+            detailsTextView.append(String.format("%25s %17.1f\n","Tong Cong:", myOrder.getGrandTotal()));
         }
     // put all the display crap here
     }

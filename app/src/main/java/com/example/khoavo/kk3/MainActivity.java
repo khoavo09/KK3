@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup TaxRadioGroup;
     private RadioButton NoTaxRadioButton;
     private Button submitButton,editButton;
+    private EditText tableNumber;
 
     TextView detailsTextView;
     TextView myLabel;
@@ -76,23 +77,50 @@ public class MainActivity extends AppCompatActivity {
         myDb = DatabaseHelper.newInstance(this);
 
 
-        //myDb.clearDatabase();
+       // myDb.clearDatabase();
 
         // Inserting items
-        try {
-       /*     myDb.insertData(new Item("Com", 10));
+      /*  try {
+           myDb.insertData(new Item("Com", 10));
             myDb.insertData(new Item("Ga Mieng", 27));
             myDb.insertData(new Item("Com Suon", 35));
             myDb.insertData(new Item("Mieng Ga", 37));
             myDb.insertData(new Item("Chao Ga", 35));
             myDb.insertData(new Item("Bo Ne", 45));
-            myDb.insertData(new Item("Mi Xao Bo", 60));*/
+            myDb.insertData(new Item("Mi Xao Bo", 60));
+            myDb.insertData(new Item("Com Nieu",13));
+            myDb.insertData(new Item("Ga La Giang Lon",60));
+            myDb.insertData(new Item("Ga La Giang Nho",45));
+            myDb.insertData(new Item("Canh Cai Lon",60));
+            myDb.insertData(new Item("Canh Cai Nho",35));
+            myDb.insertData(new Item("Canh Kho Qua Lon",80));
+            myDb.insertData(new Item("Canh Kho Qua Nho",45));
+            myDb.insertData(new Item("Ca Kho To Lon",95));
+            myDb.insertData(new Item("Ca Kho To Nho",60));
+            myDb.insertData(new Item("Thit Kho Buc Lon",90));
+            myDb.insertData(new Item("Thit Kho Buc Nho",60));
+            myDb.insertData(new Item("Thit Luoc Lon",60));
+            myDb.insertData(new Item("Thit Luoc Nho",40));
+            myDb.insertData(new Item("Ga Kho Xa Lon",200));
+            myDb.insertData(new Item("Ga Kho Xa Nho",100));
+            myDb.insertData(new Item("Ca Chien Lon",100));
+            myDb.insertData(new Item("Ca Chien Nho",50));
+            myDb.insertData(new Item("Suon Chien Mam Lon",120));
+            myDb.insertData(new Item("Suon Chien Mam Nho",60));
+            myDb.insertData(new Item("Rau Muong Xao Lon",40));
+            myDb.insertData(new Item("Rau Muong Xao Nho",30));
+            myDb.insertData(new Item("Tom Ram Lon",160));
+            myDb.insertData(new Item("Tom Ram Nho",80));
+            myDb.insertData(new Item("Bau Luoc Trung Lon",80));
+            myDb.insertData(new Item("Bau Luoc Trung Nho",40));
+            myDb.insertData(new Item("Muop Xao Long Lon",70));
+            myDb.insertData(new Item("Muop Xao Long Nho",50));
         }
         catch (SQLiteConstraintException e){
             Log.d("Insert: ", "ERROR");
             e.printStackTrace();
 
-        }
+        }*/
 
        // myDb.updateData(new Item("Com", 92));
       //  myDb.updateContact(new Item("Com", 92));
@@ -104,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         myLabel = (TextView)findViewById(R.id.label);
+        tableNumber = (EditText)findViewById(R.id.table_num_ed) ;
 
         NoTaxRadioButton = (RadioButton)findViewById(R.id.NOradioButton);
         NoTaxRadioButton.setChecked(true);
@@ -128,16 +157,19 @@ public class MainActivity extends AppCompatActivity {
                         Item item = myDb.getItem(i + 1);
                         item.setAmount(amount);
                         Order order = new Order(item.getID(), item.getName(), item.getPrice(), amount);
-                        if(!NoTaxRadioButton.isChecked()){
-                            myOrder.setisTax(1);
-                        }
                         myOrder.addItem(item);
                     }
-
                     //  bundle.putString("number", strings[i]);
                 }
+                if(!NoTaxRadioButton.isChecked()){
+                    myOrder.setisTax(1);
+                }
+                if(!tableNumber.getText().toString().isEmpty())
+                    myOrder.setTableNumber(Integer.parseInt(tableNumber.getText().toString()));
 
-                if(myOrder.getCount() >0 ) {
+
+
+                if(myOrder.getCount() >0 && myOrder.getTableNumber() != 0) {
                     bundle.putParcelable("ORDER",myOrder);
                     FragmentManager manager = getSupportFragmentManager();
                     //FragmentTransaction
@@ -152,14 +184,15 @@ public class MainActivity extends AppCompatActivity {
                         ft.remove(detailsFragment);
                         detailsFragment = new DetailsFragment();
                         ft.add(R.id.DetailsLayout,detailsFragment,"DetailsFragment");
-                        Toast.makeText(getApplicationContext(), "ELSE.....", Toast.LENGTH_SHORT).show();
                     }
                     ft.commit();
                     detailsFragment.setArguments(bundle);
                     //  manager.beginTransaction().replace(R.id.DetailsLayout, detailsFragment).commit();
                 }
-                else
+                else if(myOrder.getCount() ==0)
                     Toast.makeText(getApplicationContext(), "Please inpunt the amounts", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), "So Ban", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -371,7 +404,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-            //   Toast.makeText(getContext(), "StartWorker", Toast.LENGTH_SHORT).show();
             workerThread.start();
 
         } catch (Exception e) {
@@ -388,13 +420,13 @@ public class MainActivity extends AppCompatActivity {
             DateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
             Date today = new Date();
             String s = dateFormatter.format(today);
-            String header = "COM GA KHANH KY\n";
+            String header = "COM Ga KHANH KY\n";
             mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
             mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x08 } ); //bold
             mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x20 } ); //width
             mmOutputStream.write(header.getBytes());
 
-            header = "Dia Chi: 61 Tran Quang Dieu \n" ;
+            header = "61 Tran Quang Dieu \n" ;
             header += (s + "\n") ;
             mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
             mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x00 } ); //default
@@ -410,19 +442,19 @@ public class MainActivity extends AppCompatActivity {
             mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
 
 
+            mmOutputStream.write(String.format("So Ban: ").getBytes());
+            mmOutputStream.write(Integer.toString(myOrder.getTableNumber()).getBytes());
             String printString ="";
             int i =0;
             ArrayList<Item> localOrder = myOrder.getItemList();
-            String label = String.format("%-5s%-20s%5s%4s%9s", "STT","Ten Hang", "DG", "SL", "T.Tien\n");
+            String label = String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n");
             mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x00 } ); //left justification
             mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x00 } );
             mmOutputStream.write(label.getBytes());
+            mmOutputStream.write(String.format("----------------------------------------------\n").getBytes());
 
             String orderDetails;
             for(Item temp: localOrder) {
-               // String orderDetails = localOrder.get(i).getName() + localOrder.get(i).getPrice() + localOrder.get(i).getAmount();
-               // orderDetails += "\r\n";
-              //  printString += orderDetails;
                 orderDetails = String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
                         localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal());
 
@@ -436,11 +468,11 @@ public class MainActivity extends AppCompatActivity {
 
             orderTotal += ("----------------------------------------------\n");
             if(myOrder.getIsTax() == 1) {
-                orderTotal += (String.format("Cong: %37.1f\n", myOrder.getGrandTotal_beforeTax()));
-                orderTotal += (String.format("Thue: %37.1f\n", myOrder.getTax()));
+                orderTotal += (String.format("%25s %17.1f\n","Cong:",myOrder.getGrandTotal_beforeTax()));
+                orderTotal += (String.format("%25s %17.1f\n","Thue:", myOrder.getTax()));
             }
 
-            orderTotal +=(String.format("Tong Cong: %32.1f\n", myOrder.getGrandTotal()));
+            orderTotal +=(String.format("%25s %17.1f\n","Tong Cong:" ,myOrder.getGrandTotal()));
             orderTotal += ("----------------------------------------------\n");
             mmOutputStream.write(orderTotal.getBytes());
 
@@ -497,6 +529,7 @@ public class MainActivity extends AppCompatActivity {
         TableRow tbrow0 = new TableRow(this);
         //TableRow.LayoutParams tlp = new TableRow.LayoutParams(20,30);
 
+
         TextView tv0 = new TextView(this);
         tv0.setText(" STT ");
         tv0.setTextColor(Color.WHITE);
@@ -505,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
         //tv1.setWidth(400);
         tv1.setText(" NAME ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
-        tv1.setTextColor(Color.RED);
+        tv1.setTextColor(Color.WHITE);
         tbrow0.addView(tv1);
         TextView tv2 = new TextView(this);
         tv2.setText(" Unit Price ");

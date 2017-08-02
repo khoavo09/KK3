@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/MenuLayout"
         android:layout_width="800dp"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
@@ -20,10 +20,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1">
+
+        <EditText
+            android:id="@+id/table_num_ed"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="So Ban"
+            android:layout_marginStart="270dp"
+            android:inputType="number"/>
 
         <ScrollView
             android:id="@+id/scrollView1"
@@ -41,8 +50,7 @@
                 <TableLayout
                     android:id="@+id/table_main"
                     android:layout_width="600dp"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentTop="true">
+                    android:layout_height="fill_parent">
 
                 </TableLayout>
 

@@ -42,18 +42,26 @@ public class EditActivity extends AppCompatActivity {
                         Double price = Double.parseDouble(PriceED.get(i).getText().toString());
                         Item localItem = new Item(name, price);
                         //itemList.add(localItem);
-                        if(price == 999.999)
+                        if(price == 999.999) {
                             myDb.deleteItem(localItem);
+                            Toast.makeText(getApplicationContext(),"Deleted the item",Toast.LENGTH_SHORT);
+                        }
                         else {
                             int flag = myDb.updateData(localItem);
-                            if (flag == 0)
+                            if (flag == 0) {
                                 myDb.insertData(localItem);
+                                Toast.makeText(getApplicationContext(), "Inserted the items", Toast.LENGTH_SHORT);
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(),"Updated the item",Toast.LENGTH_SHORT);
+
                         }
+
 
                     }
                 }
-               // Intent intent = new Intent(EditActivity.this,MainActivity.class);
-               // EditActivity.this.startActivity(intent);
+                //Intent intent = new Intent(EditActivity.this,MainActivity.class);
+                //EditActivity.this.startActivity(intent);
             }
         });
 
