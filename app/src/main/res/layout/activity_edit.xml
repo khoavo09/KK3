@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.khoavo.kk3.MenuFragment"
     tools:layout_editor_absoluteY="89dp"
     tools:layout_editor_absoluteX="0dp">
 

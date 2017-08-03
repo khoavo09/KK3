@@ -491,8 +491,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             Toast.makeText(getApplicationContext(), "sendData", Toast.LENGTH_SHORT).show();
-           // mmOutputStream.write( format );
-           // mmOutputStream.write(header.getBytes());
 
             // tell the user data were sent
             mmOutputStream.flush();
