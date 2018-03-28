@@ -81,13 +81,14 @@ public class DetailsFragment extends Fragment {
             Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Consolas.ttf");
             ArrayList<Item> localOrder = myOrder.getItemList();
             detailsTextView = (TextView)v.findViewById(R.id.textViewDetails);
+            detailsTextView.setTextSize(17);
             detailsTextView.setTypeface(tf);
-            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n"));
+            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n\n"));
             for(int i=0; i < localOrder.size();i++)
-                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
+                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getCleanName(),
                         localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal()));
 
-            detailsTextView.append("-----------------------------------------\n");
+            detailsTextView.append("--------------------------------------------\n");
             if(myOrder.getIsTax() == 1) {
                 detailsTextView.append(String.format("%25s %17.1f\n","Cong:", myOrder.getGrandTotal_beforeTax()));
                 detailsTextView.append(String.format("%25s %17.1f\n","Thue:", myOrder.getTax()));

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.nio.charset.CharsetDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +21,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "itemsManager";
+    private static final String DATABASE_NAME = "KhanhKy";
 
     // Contacts table name
-    private static final String TABLE_ITEMS = "items";
+    private static final String TABLE_ITEMS = "food";
 
     // Contacts Table Columns names
 
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
+    private static final String KEY_CLEAN_NAME = "cleanName";
     private static final String KEY_PRICE = "price";
 
     private static DatabaseHelper myDb = null;
     private Context mContext;
+    private static int count;
 
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,8 +45,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static DatabaseHelper newInstance(Context context){
         if (myDb == null){
             myDb = new DatabaseHelper(context.getApplicationContext());
+            count = 0;
         }
         return myDb;
+    }
+
+    public boolean isExisting(){
+        if(myDb == null)
+            return false;
+        else
+            return true;
     }
 
     // Creating Tables
@@ -52,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String CREATE_ITEMS_TABLE = "CREATE TABLE " + TABLE_ITEMS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_CLEAN_NAME + " TEXT,"
                 + KEY_PRICE + " REAL" + ")";
         db.execSQL(CREATE_ITEMS_TABLE);
     }
@@ -71,8 +83,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertData(Item item){
         SQLiteDatabase db = this.getWritableDatabase();
 
+       // PRAGMA encoding = "UTF-8";
+
         ContentValues values = new ContentValues();
         values.put(KEY_NAME,item.getName()); // Item Name
+        values.put(KEY_CLEAN_NAME,item.getCleanName());
         values.put(KEY_PRICE,item.getPrice()); // Item Price
 
         Cursor cur = db.query(TABLE_ITEMS, null, "NAME = ? AND PRICE = ?",
@@ -93,6 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          String id = Integer.toString(item.getID());
          ContentValues values = new ContentValues();
          values.put(KEY_NAME,item.getName());
+         values.put(KEY_CLEAN_NAME,item.getCleanName());
          values.put(KEY_PRICE,item.getPrice());
 
        //  db.update(TABLE_ITEMS,values,"id = ?" + id, new String[] { String.valueOf(item.getName()) });
@@ -114,13 +130,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_ITEMS, new String[] { KEY_ID,
-                        KEY_NAME, KEY_PRICE }, KEY_ID + "=?",
+                        KEY_NAME,KEY_CLEAN_NAME, KEY_PRICE }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
+        //Item item = new Item(Integer.parseInt(cursor.getString(0)),
+         //       cursor.getString(1), cursor.getString(2) , Double.parseDouble(cursor.getString(2)));
         Item item = new Item(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), Double.parseDouble(cursor.getString(2)));
+                       cursor.getString(1), cursor.getString(2) , Double.parseDouble(cursor.getString(3)));
         return item;
     }
 
@@ -139,7 +157,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Item item = new Item();
                 item.setID(Integer.parseInt(cursor.getString(0)));
                 item.setName(cursor.getString(1));
-                item.setPrice(Double.parseDouble(cursor.getString(2)));
+                item.setCleanName(cursor.getString(2));
+                item.setPrice(Double.parseDouble(cursor.getString(3)));
                 itemList.add(item);
             }
             while (cursor.moveToNext());
@@ -153,10 +172,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String countQuery = "SELECT  * FROM " + TABLE_ITEMS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+        count = cursor.getCount();
         cursor.close();
 
         // return count
-        return cursor.getCount();
+        return count;
     }
 
     // Deleting single contact

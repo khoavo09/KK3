@@ -11,6 +11,7 @@ import android.os.Parcelable;
 public class Item implements Parcelable {
     int ID;
     String Name;
+    String CleanName;
     double Price;
     int Amount;
     double subTotal;
@@ -25,9 +26,16 @@ public class Item implements Parcelable {
         Price = price;
     }
 
-    public Item(int id, String name, double price) {
+    public Item(String name, String cleanName, double price) {
+        Name = name;
+        CleanName = cleanName;
+        Price = price;
+    }
+
+    public Item(int id, String name,String cleanName, double price) {
         ID = id;
         Name = name;
+        CleanName = cleanName;
         Price = price;
     }
 
@@ -76,6 +84,14 @@ public class Item implements Parcelable {
         Name = name;
     }
 
+    public String getCleanName() {
+        return CleanName;
+    }
+
+    public void setCleanName(String cleanName) {
+        CleanName = cleanName;
+    }
+
     public double getPrice() {
         return Price;
     }
@@ -97,6 +113,7 @@ public class Item implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(ID);
         dest.writeString(Name);
+        dest.writeString(CleanName);
         dest.writeDouble(Price);
         dest.writeInt(Amount);
         dest.writeDouble(subTotal);
@@ -106,6 +123,7 @@ public class Item implements Parcelable {
     protected Item(Parcel in){
         ID = in.readInt();
         Name = in.readString();
+        CleanName = in.readString();
         Price = in.readDouble();
         Amount = in.readInt();
         subTotal = in.readDouble();
