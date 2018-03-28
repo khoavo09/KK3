@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Khánh Kỳ</string>
+    <string name="table_number_edit_text">Số Bàn</string>
+    <string name="submit_button">Chấp thuận</string>
+    <string name="connect_button">Kết nối WIFI</string>
+    <string name="print_button">In</string>
+    <string name="edit_button">Chỉnh Sửa</string>
+    <string name="tax_label">Thuế</string>
+    <string name="no_label">Không</string>
+    <string name="printing_confirmation_dialog_message">In hoá đơn?</string>
+    <string name="printing_confirmation_dialog_title">Xác nhận in</string>
+    <string name="title_connected_to">Đã Kết Nối</string>
+    <string name="title_connecting">Đang Kết Nối</string>
+    <string name="title_not_connected">Chưa kết nối</string>
+    <string name="yes_label">Có</string>
+    <string name="please_input_amounts">Số Lượng?</string>
+    <string name="table_number_reminder_text">Bàn Số?</string>
+    <string name="deleted_items_toast">Đã xoá</string>
+    <string name="inserted_items_toast">Đã thêm vào</string>
+    <string name="updated_items_toast">Đã cập nhật</string>
+    <string name="unit_price_table_header">Đơn Giá</string>
+    <string name="num_table_header">STT</string>
+    <string name="name_table_header">Tên</string>
+    <string name="amount_table_header">Số Lượng</string>
+    <string name="how_to_delete_text">Điền số 0.0 vào Đơn Giá để xoá</string>
+    <string name="could_not_connect">Không thể kết nối</string>
+    <string name="closed_connection">Đã đóng kết nối</string>
+    <string name="connect">Kết nối</string>
+    <string name="disconnect">Dừng kết nối</string>
+    <string name="no_accent_marks">Đừng bỏ dấu vào tên khi thêm món ăn vào thực đơn!!</string>
+</resources>

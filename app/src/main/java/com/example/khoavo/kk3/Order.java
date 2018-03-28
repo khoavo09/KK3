@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Order implements Parcelable{
 
+    int tableNumber;
     int isTax;
     double tax;
     double grandTotal_beforeTax;
@@ -21,6 +22,14 @@ public class Order implements Parcelable{
     public double getTax() {
         calculateTax();
         return tax;
+    }
+
+    public int getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public int getIsTax() {
@@ -56,6 +65,7 @@ public class Order implements Parcelable{
     }
 
     protected Order(Parcel in) {
+        tableNumber = in.readInt();
         isTax = in.readInt();
         tax = in.readDouble();
         grandTotal = in.readDouble();
@@ -63,7 +73,8 @@ public class Order implements Parcelable{
     }
 
     public Order (){
-        int count = 0;
+        count = 0;
+        tableNumber = 0;
 
     }
 
@@ -104,6 +115,7 @@ public class Order implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(tableNumber);
         dest.writeInt(isTax);
         dest.writeDouble(tax);
         dest.writeDouble(grandTotal);

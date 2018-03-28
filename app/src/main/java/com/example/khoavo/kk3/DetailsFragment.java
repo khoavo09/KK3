@@ -64,260 +64,9 @@ public class DetailsFragment extends Fragment {
          View v = inflater.inflate(R.layout.fragment_details, container, false);
         myLabel = (TextView)v.findViewById(R.id.label);
         display(v);
-/*
-        try {
-            findBT();
-            openBT();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-
-        // send data typed by the user to be printed
-        sendButton = (Button)v.findViewById(R.id.PrintButton);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    sendData();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        // close bluetooth connection
-        closeButton = (Button)v.findViewById(R.id.CloseButton);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    closeBT();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        */
         return v;
     }
 
-
-    // this will find a bluetooth printer device
-   /* void findBT() {
-
-        try {
-            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-            if(mBluetoothAdapter == null) {
-                myLabel.setText("No bluetooth adapter available");
-            }
-
-            if(!mBluetoothAdapter.isEnabled()) {
-                Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBluetooth, 0);
-            }
-
-            Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-
-            if(pairedDevices.size() > 0) {
-                for (BluetoothDevice device : pairedDevices) {
-
-                    // RPP300 is the name of the bluetooth printer device
-                    // we got this name from the list of paired devices
-                    if (device.getName().equals("RPP300-E")) {
-                        mmDevice = device;
-                        break;
-                    }
-                }
-            }
-
-            myLabel.setText("Bluetooth device found.");
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-    // tries to open a connection to the bluetooth printer device
-    void openBT() throws IOException {
-        try {
-            Toast.makeText(getContext(), "OPEN IN TRY", Toast.LENGTH_SHORT).show();
-            // Standard SerialPortService ID
-            UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-            mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
-            mmSocket.connect();
-            mmOutputStream = mmSocket.getOutputStream();
-            mmInputStream = mmSocket.getInputStream();
-            Toast.makeText(getContext(), "OpenBT", Toast.LENGTH_SHORT).show();
-
-            beginListenForData();
-
-            myLabel.setText("Bluetooth Opened");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    void beginListenForData() {
-        try {
-            final Handler handler = new Handler();
-
-            // this is the ASCII code for a newline character
-            final byte delimiter = 10;
-
-            stopWorker = false;
-            readBufferPosition = 0;
-            readBuffer = new byte[1024];
-            Toast.makeText(getContext(), "StartWorker", Toast.LENGTH_SHORT).show();
-
-            workerThread = new Thread(new Runnable() {
-                public void run() {
-
-                    while (!Thread.currentThread().isInterrupted() && !stopWorker) {
-
-                        try {
-
-                            int bytesAvailable = mmInputStream.available();
-
-                            if (bytesAvailable > 0) {
-
-                                byte[] packetBytes = new byte[bytesAvailable];
-                                mmInputStream.read(packetBytes);
-
-                                for (int i = 0; i < bytesAvailable; i++) {
-
-                                    byte b = packetBytes[i];
-                                    if (b == delimiter) {
-
-                                        byte[] encodedBytes = new byte[readBufferPosition];
-                                        System.arraycopy(
-                                                readBuffer, 0,
-                                                encodedBytes, 0,
-                                                encodedBytes.length
-                                        );
-
-                                        // specify US-ASCII encoding
-                                        final String data = new String(encodedBytes, "US-ASCII");
-                                        readBufferPosition = 0;
-
-                                        // tell the user data were sent to bluetooth printer device
-                                        handler.post(new Runnable() {
-                                            public void run() {
-                                                myLabel.setText(data);
-                                            }
-                                        });
-
-                                    } else {
-                                        readBuffer[readBufferPosition++] = b;
-                                    }
-                                }
-                            }
-
-                        } catch (IOException ex) {
-                            stopWorker = true;
-                        }
-
-                    }
-                }
-            });
-         //   Toast.makeText(getContext(), "StartWorker", Toast.LENGTH_SHORT).show();
-            workerThread.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // this will send text data to be printed by the bluetooth printer
-    void sendData() throws IOException {
-        try {
-          //  Toast.makeText(getContext(), "sendData", Toast.LENGTH_SHORT).show();
-
-            // the text typed by the user
-            DateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-            Date today = new Date();
-            String s = dateFormatter.format(today);
-            String header = "COM GA KHANH KY\n"
-                            +"Dia Chi: 61 Tran Quang Dieu \n" ;
-            header += ("Date: " + s + "\n") ;
-
-
-            String printString ="";
-            int i =0;
-            for(Order temp: order) {
-                String orderDetails = order.get(i).getName() + "  " + order.get(i).getAmount();
-                orderDetails += "\n";
-                printString += orderDetails;
-                i++;
-            }
-
-            String orderTotal = "Total: " + Double.toString(CalculateTotal(order,order.get(0).getTax())) + "\n";
-            if(order.get(0).getTax() == 0){
-
-            }
-            else{
-               // orderTotal += ("Tax: " + Double.toString(CalculateTax()));
-            }
-            String PRINTME = header + printString + orderTotal;
-
-            byte[] center = new byte[]{ 0x1b, 0x61, 0x01 };
-            mmOutputStream.write( center );
-            mmOutputStream.write(PRINTME.getBytes());
-
-
-            // tell the user data were sent
-          //  myLabel.setText("Data sent.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    // close the connection to bluetooth printer.
-    void closeBT() throws IOException {
-        try {
-            stopWorker = true;
-            mmOutputStream.close();
-            mmInputStream.close();
-            mmSocket.close();
-            myLabel.setText("Bluetooth Closed");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
-
-
-
-  /*  public double CalculateTax(Double total){
-        return total * 0.5;
-    }
-
-
-    public double CalculateTotal (ArrayList<Order> order, int Tax){
-        double total = 0;
-        double value;
-
-
-        for(int i =0; i < order.size();i++){
-            value = (order.get(i).getPrice())  * order.get(i).getAmount();
-            total += value;
-        }
-
-        if(Tax==1) {
-            total = total + (total * 0.1);
-            return total;
-        }
-        else
-            return total;
-    }*/
 
 
 
@@ -332,19 +81,20 @@ public class DetailsFragment extends Fragment {
             Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Consolas.ttf");
             ArrayList<Item> localOrder = myOrder.getItemList();
             detailsTextView = (TextView)v.findViewById(R.id.textViewDetails);
+            detailsTextView.setTextSize(17);
             detailsTextView.setTypeface(tf);
-            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n"));
+            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n\n"));
             for(int i=0; i < localOrder.size();i++)
-                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
+                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getCleanName(),
                         localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal()));
 
-            detailsTextView.append("-------------------------------------------------------\n");
+            detailsTextView.append("--------------------------------------------\n");
             if(myOrder.getIsTax() == 1) {
-                detailsTextView.append(String.format("Cong: %37.1f\n", myOrder.getGrandTotal_beforeTax()));
-                detailsTextView.append(String.format("Thue: %37.1f\n", myOrder.getTax()));
+                detailsTextView.append(String.format("%25s %17.1f\n","Cong:", myOrder.getGrandTotal_beforeTax()));
+                detailsTextView.append(String.format("%25s %17.1f\n","Thue:", myOrder.getTax()));
             }
 
-            detailsTextView.append(String.format("Tong Cong: %32.1f\n", myOrder.getGrandTotal()));
+            detailsTextView.append(String.format("%25s %17.1f\n","Tong Cong:", myOrder.getGrandTotal()));
         }
     // put all the display crap here
     }

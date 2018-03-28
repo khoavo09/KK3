@@ -1,6 +1,35 @@
 <resources>
-    <string name="app_name">KK3</string>
+    <string name="app_name">Khanh Ky</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="table_number_edit_text">Table Number</string>
+    <string name="table_number_reminder_text">Table Number?</string>
+    <string name="submit_button">Submit</string>
+    <string name="connect_button">Connect Wifi</string>
+    <string name="print_button">Print</string>
+    <string name="edit_button">Edit</string>
+    <string name="tax_label">Tax</string>
+    <string name="yes_label">Yes</string>
+    <string name="no_label">No</string>
+    <string name="title_connecting">Connecting</string>
+    <string name="title_connected_to">Connected Successfully</string>
+    <string name="title_not_connected">Not Connected</string>
+    <string name="could_not_connect">Could Not Connect</string>
+    <string name="closed_connection">Closed Connection</string>
+    <string name="please_input_amounts">Please input the amounts</string>
+    <string name="printing_confirmation_dialog_title">Printing Confirmation</string>
+    <string name="printing_confirmation_dialog_message">Do you want to print?</string>
+    <string name="deleted_items_toast">Deleted items</string>
+    <string name="inserted_items_toast">Inserted items</string>
+    <string name="updated_items_toast">Updated items</string>
+    <string name="unit_price_table_header">Unit Price</string>
+    <string name="amount_table_header">Amount</string>
+    <string name="name_table_header">Name</string>
+    <string name="num_table_header">Num</string>
+    <string name="connect">Open Connect</string>
+    <string name="disconnect">Close Connection</string>
+
+    <!-- EditActivity strings -->
+    <string name="how_to_delete_text">Enter 0.0 into the unit price to delete an item</string>
+    <string name="no_accent_marks">Do not enter any accent marks!</string>
 </resources>

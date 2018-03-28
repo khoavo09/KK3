@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.khoavo.kk3.MenuFragment"
     tools:layout_editor_absoluteY="89dp"
     tools:layout_editor_absoluteX="0dp">
 
@@ -42,21 +41,38 @@
 
             </TableLayout>
 
-            <Button
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit" />
 
             <Button
                 android:id="@+id/submitButtonEdit"
                 android:layout_width="140dp"
                 android:layout_height="70dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="90dp"
                 android:width="70dp"
                 android:height="40dp"
-                android:text="Submit" />
+                android:text="@string/submit_button" />
+
+            <TextView
+                android:id="@+id/how_to_delete"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorWhite"
+                android:text="@string/how_to_delete_text" />
+
+            <TextView
+                android:id="@+id/no_accent_mark"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="200dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/colorRed"
+                android:textSize="19sp"
+                android:text="@string/no_accent_marks" />
         </RelativeLayout>
     </ScrollView>
 
