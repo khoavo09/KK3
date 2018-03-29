@@ -11,7 +11,6 @@ package com.example.khoavo.kk3;
         import android.view.View.OnClickListener;
         import android.widget.EditText;
         import android.widget.LinearLayout;
-        import android.widget.Toast;
 
 public class IP_AddressEdit extends Activity {
     // private MyDialog dialog;

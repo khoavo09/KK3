@@ -3,7 +3,6 @@ import com.RT_Printer.BluetoothPrinter.BLUETOOTH.BluetoothPrintDriver;
 import com.android.print.sdk.Barcode;
 import com.android.print.sdk.CanvasPrint;
 import com.android.print.sdk.FontProperty;
-import com.android.print.sdk.PrinterConstants;
 import com.android.print.sdk.PrinterInstance;
 import com.android.print.sdk.PrinterConstants.Connect;
 import com.android.print.sdk.PrinterType;
@@ -11,10 +10,8 @@ import com.android.print.sdk.PrinterConstants.Command;
 import com.android.print.sdk.PrinterConstants.BarcodeType;
 
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,7 +42,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.DateFormat;
