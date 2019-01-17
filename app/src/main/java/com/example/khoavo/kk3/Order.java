@@ -93,7 +93,7 @@ public class Order implements Parcelable{
     }
 
     public void calculateTax(){
-        tax = grandTotal * 0.01;
+        tax = grandTotal * 0.005;
     }
 
 
@@ -109,7 +109,8 @@ public class Order implements Parcelable{
         grandTotal_beforeTax = grandTotal;
 
         if(isTax==1) {
-            grandTotal = grandTotal + (grandTotal * 0.01);
+            grandTotal = grandTotal + (grandTotal * 0.005);
+            grandTotal = Math.round(grandTotal);
         }
     }
 
