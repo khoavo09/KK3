@@ -32,6 +32,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -127,51 +128,60 @@ public class MainActivity extends AppCompatActivity {
 
         Item [] menu = new Item []{
                 new Item("Cơm Gà","Com Ga", 10),
-                new Item("Gà Miếng","Ga Mieng", 27),
+                new Item("Gà Miếng","Ga Mieng", 28),
+                new Item("Lòng Gà","Long Ga", 22),
+                new Item("Gà Nướng","Ga Nuong", 105),
+                new Item("Gà Nguyên Con","Ga Nguyen Con", 120),
+                new Item("Cơm Nhiều","Com Nhieu", 12),
                 new Item("Cơm Sườn","Com Suon", 35),
-                new Item("Miếng Gà","Mieng Ga", 37),
+                new Item("Miến Gà","Mien Ga", 38),
                 new Item("Cháo Gà","Chao Ga", 35),
                 new Item("Bò Né","Bo Ne", 45),
                 new Item("Mì Xào Bò","Mi Xao Bo",60 ),
+                new Item("Khăn","Khan",2 ),
                 new Item("Cơm Niêu","Com Nieu", 13),
-                new Item("Gà Lá Giang Lớn","Ga La Giang Lon", 60),
+                new Item("Gà Lá Giang Lớn","Ga La Giang Lon", 80),
                 new Item("Gà Lá Giang Nhỏ","Ga La Giang Nho", 45),
-                new Item("Canh Cải Lớn","Canh Cai Lon", 80),
-                new Item("Canh Cải Nhỏ","Canh Cai Nho", 45),
+                new Item("Canh Chua Lớn","Canh Chua Lon", 110),
+                new Item("Canh Chua Nhỏ","Canh Chua Nho", 70),
                 new Item("Canh Khổ Qua Lớn","Canh Kho Qua Lon", 80),
                 new Item("Canh Khổ Qua Nhỏ","Canh Kho Qua Nho", 45),
-                new Item("Cá Kho Tộ Lớn","Ca Kho To Lon", 95),
-                new Item("Cá Kho Tộ Nhỏ","Ca Kho To Nho", 60),
-                new Item("Thịt Kho Trứng Lớn","Thit Kho Trung Lon", 90),
-                new Item("Thịt Kho Trứng Nhỏ","Thit Kho Trung Nho", 60),
-                new Item("Thịt Luộc Lớn","Thit Luoc Lon", 60),
-                new Item("Thịt Luộc Nhỏ","Thit Luoc Nho", 40),
-                new Item("Gà Kho Xã Lớn","Ga Kho Xa Lon ", 200),
-                new Item("Gà Kho Xã Nhỏ","Ga Kho Xa Nho", 100),
-                new Item("Cá Chiên Lớn","Ca Chien Lon", 100),
-                new Item("Cá Chiên Nhỏ","Ca Chien Nho", 50),
-                new Item("Sườn Chiên Mắm Lớn","Suon Chien Mam Lon", 120),
-                new Item("Sườn Chiên Mắm Nhỏ","Sườn Chiên Mắm Nho", 60),
-                new Item("Rau Muống Xào Lớn","Rau Muong Xao Lon", 40),
-                new Item("Rau Muống Xào Nhỏ","Rau Muong Xao Nho", 30),
-                new Item("Tôm Ram Lớn","Tom Ram Lon", 160),
-                new Item("Tôm Ram Nhỏ","Tom Ram Nho", 80),
-                new Item("Bầu Luộc Trứng Lớn","Bau Luoc Trung Lon", 80),
-                new Item("Bầu Luộc Trứng Nhỏ","Bau Luoc Trung Nho", 40),
+                new Item("Canh Cải Lòng Gà Lớn","Canh Cai Long Ga Lon", 60),
+                new Item("Canh Cải Lòng Gà Nhỏ","Canh Cai Long Ga Nho", 35),
                 new Item("Mướp Xào Lòng Lớn","Muop Xao Long Lon", 70),
                 new Item("Mướp Xào Lòng Nhỏ","Muop Xao Long Nho", 50),
-                new Item("Nước Suối","Nuoc Suoi",10),
+                new Item("Mực Xào Lớn","Muc Xao Lon", 160),
+                new Item("Mực Xào Nhỏ","Muc Xao Nho", 80),
+                new Item("Bò Xào Lớn","Bo Xao Lon", 120),
+                new Item("Bò Xào Nhỏ","Bo Xao Nho", 70),
+                new Item("Cá Kho Tộ","Ca Kho To", 120),
+                new Item("Gà Kho Xả Ớt Lớn","Ga Kho Xa Ot Lon ", 210),
+                new Item("Gà Kho Xả Ớt Nhỏ","Ga Kho Xa Ot Nho", 110),
+                new Item("Thịt Kho Trứng","Thit Kho Trung", 100),
+                new Item("Thịt Luộc Mắm Nêm Lớn","Thit Luoc Mam Nem Lon", 50),
+                new Item("Thịt Luộc Mắm Nêm Nhỏ","Thit Luoc Mam Nem Nho", 40),
+                new Item("Sườn Chiên Mặn Lớn","Suon Chien Man Lon", 120),
+                new Item("Sườn Chiên Mặn Nhỏ","Suon Chien Man Nho", 60),
+                new Item("Cá Chiên","Ca Chien", 80),
+                new Item("Gà Chiên","Ga Chien", 120),
+                new Item("Tôm Ram Lớn","Tom Ram Lon", 160),
+                new Item("Tôm Ram Nhỏ","Tom Ram Nho", 100),
+                new Item("Bầu Luộc Trứng Lớn","Bau Luoc Trung Lon", 100),
+                new Item("Bầu Luộc Trứng Nhỏ","Bau Luoc Trung Nho", 70),
+                new Item("Rau Muống Xào Lớn","Rau Muong Xao Lon", 40),
+                new Item("Rau Muống Xào Nhỏ","Rau Muong Xao Nho", 30),
+                new Item("Nước Suối Mặn","Nuoc Suoi Man",10),
+                new Item("Nước Suối Ngọt","Nuoc Suoi Ngot",12),
                 new Item("Nước Khoáng","Nuoc Khoang",8),
                 new Item("Bò Húc","Bo Huc",15),
                 new Item("Nước Ngọt Lon","Nuoc Ngot Lon",12),
                 new Item("Bia Tiger","Bia Tiger",16),
                 new Item("Bia Heineken","Bia Heineken",20),
                 new Item("Bia Sài Gòn","Bia Sai Gon",15),
-
         };
        // myDb.clearDatabase();
         try {
-            for(int i=0;i<41;i++)
+            for(int i=0;i<51;i++)
             menu[i].setName( URLDecoder.decode(menu[i].getName(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -180,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Inserting items
         try {
-            for(int i =0;i< 41;i++){
+            for(int i =0;i< 51;i++){
                 myDb.insertData(menu[i]);
             }
 
@@ -191,8 +201,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-       // myDb.updateData(new Item("Com", 92));
-      //  myDb.updateContact(new Item("Com", 92));
         }
 
         //Toast.makeText(this, myDb.getItemsCount(), Toast.LENGTH_LONG).show();
@@ -374,10 +382,10 @@ public class MainActivity extends AppCompatActivity {
             String connStr = getResources().getString(R.string.connect);
             switch (currIndex) {
                 case 0:
-                    connStr = String.format(connStr, "Wifi");
+                    connStr = String.format(connStr, "Bluetooth");
                     break;
                 case 1:
-              //      connStr = String.format(connStr, btnBluetooth.getText());
+                   // connStr = String.format(connStr, "Wifi");
                     break;
                 case 2:
              //       connStr = String.format(connStr, btnUsb.getText());
@@ -400,12 +408,13 @@ public class MainActivity extends AppCompatActivity {
     private void openConn() {
         if (!isConnected) {
             switch (currIndex) {
-                case 0: // wifi
-                    myOpertion = new WifiOperation(MainActivity.this, mHandler);
+                case 0: // bluetooth
+                    myOpertion = new BluetoothOperation(MainActivity.this, mHandler);
+                    //myOpertion = new WifiOperation(MainActivity.this, mHandler);
                     break;
                 //implement this later
-                case 1: // bluetooth
-                    //myOpertion = new BluetoothOperation(MainActivity.this, mHandler);
+                case 1: // wifi
+                    //myOpertion = new WifiOperation(MainActivity.this, mHandler);
                     break;
                 default:
                     break;
@@ -455,178 +464,6 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-/*
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(D) Log.e(TAG, "++ ON START ++");
-
-        // If BT is not on, request that it be enabled.
-        // setupChat() will then be called during onActivityResult
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-            // Otherwise, setup the chat session
-        } else {
-            if (mChatService == null) setupChat();
-        }
-    }
-
-    @Override
-    public synchronized void onResume() {
-        super.onResume();
-        if(D) Log.e(TAG, "+ ON RESUME +");
-
-        // Performing this check in onResume() covers the case in which BT was
-        // not enabled during onStart(), so we were paused to enable it...
-        // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
-        if (mChatService != null) {
-            // Only if the state is STATE_NONE, do we know that we haven't started already
-            if (mChatService.getState() == BluetoothPrintDriver.STATE_NONE) {
-                // Start the Bluetooth chat services
-                mChatService.start();
-            }
-        }
-    }
-
-
-    @SuppressLint("NewApi")
-    private void ensureDiscoverable() {
-        if(D) Log.d(TAG, "ensure discoverable");
-        if (mBluetoothAdapter.getScanMode() !=
-                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
-        }
-    }
-
-*/
-/*
-    // The Handler that gets information back from the BluetoothChatService
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MESSAGE_STATE_CHANGE:
-                    if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
-                    switch (msg.arg1) {
-                        case BluetoothPrintDriver.STATE_CONNECTED:
-                            mTitle.setText(R.string.title_connected_to);
-                            mTitle.setTextColor(Color.GREEN);
-                        //    connectButton.setText(R.string.title_connected_to);
-                         //   mTitle.append(" " + mConnectedDeviceName);
-                            //setTitle(mConnectedDeviceName);
-                            break;
-                        case BluetoothPrintDriver.STATE_CONNECTING:
-                           // mTitle.setText("Connecting");
-                            mTitle.setText(R.string.title_connecting);
-                            mTitle.setTextColor(Color.BLUE
-
-                            );
-                         //   connectButton.setText(R.string.title_connecting);
-                            //setTitle(R.string.title_connecting);
-                            break;
-                        case BluetoothPrintDriver.STATE_LISTEN:
-                        case BluetoothPrintDriver.STATE_NONE:
-                           // mTitle.setText("Not Connected");
-                         //   connectButton.setText(R.string.title_not_connected);
-                            mTitle.setText(R.string.title_not_connected);
-                            mTitle.setTextColor(Color.RED);
-                            break;
-                    }
-                    break;
-                case MESSAGE_WRITE:
-                    break;
-                case MESSAGE_READ:
-                    String ErrorMsg = null;
-                    byte[] readBuf = (byte[]) msg.obj;
-                    float Voltage = 0;
-                    if(D) Log.i(TAG, "readBuf[0]:"+readBuf[0]+"  readBuf[1]:"+readBuf[1]+"  readBuf[2]:"+readBuf[2]);
-                    if(readBuf[2]==0)
-                        ErrorMsg = "NO ERROR!         ";
-                    else
-                    {
-                        if((readBuf[2] & 0x02) != 0)
-                            ErrorMsg = "ERROR: No printer connected!";
-                        if((readBuf[2] & 0x04) != 0)
-                            ErrorMsg = "ERROR: No paper!  ";
-                        if((readBuf[2] & 0x08) != 0)
-                            ErrorMsg = "ERROR: Voltage is too low!  ";
-                        if((readBuf[2] & 0x40) != 0)
-                            ErrorMsg = "ERROR: Printer Over Heat!  ";
-                    }
-                    Voltage = (float) ((readBuf[0]*256 + readBuf[1])/10.0);
-                    //if(D) Log.i(TAG, "Voltage: "+Voltage);
-                    DisplayToast(ErrorMsg+"                                        "+"Battery voltage£º"+Voltage+" V");
-                    break;
-                case MESSAGE_DEVICE_NAME:
-                    // save the connected device's name
-                    mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
-                    Toast.makeText(getApplicationContext(), "Connected to "
-                            + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-                    break;
-                case MESSAGE_TOAST:
-                    Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
-                            Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
-
-    private void setupChat() {
-        Log.d(TAG, "setupChat()");
-        // Initialize the BluetoothChatService to perform bluetooth connections
-        mChatService = new BluetoothPrintDriver(this, mHandler);
-    }
-
-    public void DisplayToast(String str)
-    {
-        Toast toast = Toast.makeText(this, str, Toast.LENGTH_SHORT);
-        //ÉèÖÃtoastÏÔÊ¾µÄÎ»ÖÃ
-        toast.setGravity(Gravity.TOP, 0, 100);
-        //ÏÔÊ¾¸ÃToast
-        toast.show();
-    }//DisplayToast
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)  {
-        if(D) Log.d(TAG, "onActivityResult " + resultCode);
-        switch (requestCode) {
-            case REQUEST_CONNECT_DEVICE:
-                // When DeviceListActivity returns with a device to connect
-                if (resultCode == RESULT_OK) {
-                    // Get the device MAC address
-                    String address = data.getExtras()
-                            .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-                    // Get the BLuetoothDevice object
-                    BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-                    // Attempt to connect to the device
-                    mChatService.connect(device);
-                }
-                break;
-            case REQUEST_ENABLE_BT:
-                // When the request to enable Bluetooth returns
-                if (resultCode == RESULT_OK) {
-                    // Bluetooth is now enabled, so set up a chat session
-                    setupChat();
-                } else {
-                    // User did not enable Bluetooth or an error occured
-                    Log.d(TAG, "BT not enabled");
-                    //Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-        }
-    }
-
-*/
 
 
     void sendData() throws IOException {
@@ -640,31 +477,6 @@ public class MainActivity extends AppCompatActivity {
 
             mPrinter.init();
 
-            /*byte[] command = new byte[7];
-            command[0] = 0x1B;
-            command[1] = 0x40;
-            command[2] = 0x1C;
-            command[3] = 0x2E;
-            command[4] = 0x1B;
-            command[5] = 0x74;
-            command[6] = 0x00;
-
-
-            byte[] command1 = new byte[3];
-            command1[0] = (byte)0x80;
-            command1[1] = (byte)0xD0;
-            command1[2] = (byte)0xC9;
-
-            mPrinter.printText("Hello\n");
-            mPrinter.sendByteData(command);
-            mPrinter.sendByteData(command1);*/
-            //mPrinter.printText("ù ú");
-
-            // mPrinter.setPrinter(Command.ALIGN, Command.ALIGN_RIGHT);
-            //mPrinter.printText("Hello again");
-            //mPrinter.printText("à");
-
-          //  mPrinter.printText("          ");
             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.comgakk2);
             mPrinter.printImage(bitmap);
 
@@ -680,22 +492,6 @@ public class MainActivity extends AppCompatActivity {
             CanvasPrint cp = new CanvasPrint();
             cp.init(PrinterType.T9);
             cp.setUseSplit(true);
-
-
-           /* FontProperty fp = new FontProperty();
-            fp.setFont(false, false, false, false, 40, null);
-            cp.setFontProperty(fp);
-            cp.drawText("             Cơm Gà Khánh Kỳ");
-            fp.setFont(false, false, false, false, 25, null);
-            cp.setFontProperty(fp);
-            cp.drawText("                  61 Trần Quang Diệu, Phan Rang");
-            fp.setFont(false, false, false, false, 40, null);
-            cp.setFontProperty(fp);
-            cp.drawText("               Phiếu Tính Tiền");
-            fp.setFont(false, false, false, false, 25, null);
-            cp.setFontProperty(fp);
-            cp.drawText("Ngày: "+ s + "    Giờ: " + s1);
-            cp.drawText("Số Bàn: " + Integer.toString(myOrder.getTableNumber()));*/
 
             FontProperty fp = new FontProperty();
             fp.setFont(true, false, false, false, 40, null);
@@ -765,191 +561,6 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.cutPaper();
 
 
-
-
-
-            //cp.drawText("Số Bàn: " + Integer.toString(myOrder.getTableNumber()));
-
-            // mPrinter.setPrinter(Command.ALIGN, Command.ALIGN_CENTER);
-
-
-
-            // WCP1258
-        //   BluetoothPrintDriver.BT_Write(new byte[]{0x1b,0x74,0x23} );
-
-/*
-            DateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-            Date today = new Date();
-            String s = dateFormatter.format(today);
-
-         //   String temp="";
-            String header = "Cơm Gà Khánh Kỳ \n";
-
-           // temp = URLDecoder.decode(header, "UTF-8");
-            BluetoothPrintDriver.SetAlignMode((byte)0x01);
-            BluetoothPrintDriver.SetBold((byte)0x01);
-            BluetoothPrintDriver.SetFontEnlarge((byte)0x11);
-
-          //  BluetoothPrintDriver.BT_Write(header.getBytes("CP1258"));
-
-
-
-            header = "61 Tran Quang Dieu \n" ;
-            header += (s + "\n") ;
-            BluetoothPrintDriver.SetAlignMode((byte)0x01);
-            BluetoothPrintDriver.SetBold((byte)0x00);
-            BluetoothPrintDriver.SetFontEnlarge((byte)0x00);
-            BluetoothPrintDriver.BT_Write(header);
-
-
-            BluetoothPrintDriver.SetBold((byte)0x01);
-            BluetoothPrintDriver.SetFontEnlarge((byte)0x11);
-            BluetoothPrintDriver.CR();
-            //BluetoothPrintDriver.BT_Write(new byte[]{(byte)0x0A});
-            BluetoothPrintDriver.BT_Write(String.format("PHIEU TINH TIEN\n"));
-            BluetoothPrintDriver.CR();
-
-
-            BluetoothPrintDriver.SetBold((byte)0);
-            BluetoothPrintDriver.SetFontEnlarge((byte)0);
-            BluetoothPrintDriver.SetAlignMode((byte)0);
-            BluetoothPrintDriver.BT_Write(String.format("So Ban: "));
-            BluetoothPrintDriver.BT_Write(Integer.toString(myOrder.getTableNumber()));
-            BluetoothPrintDriver.CR();
-            String printString ="";
-            int i =0;
-            ArrayList<Item> localOrder = myOrder.getItemList();
-            String label = String.format("%-5s%-22s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n");
-            BluetoothPrintDriver.SetAlignMode((byte)0);
-            BluetoothPrintDriver.SetBold((byte)1);
-            BluetoothPrintDriver.BT_Write(label);
-            BluetoothPrintDriver.BT_Write(String.format("----------------------------------------------\n"));
-            BluetoothPrintDriver.SetBold((byte)0);
-
-            String orderDetails;
-            for(Item temp: localOrder) {
-                orderDetails = String.format("%-5d%-22s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getCleanName(),
-                        localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal());
-
-                BluetoothPrintDriver.BT_Write(orderDetails);
-                i++;
-            }
-
-            //Fix this later
-            myOrder.CalculateTotal();
-            String orderTotal="";// = "Total: " + Double.toString(myOrder.getGrandTotal()) + "\n";
-
-            orderTotal += ("----------------------------------------------\n");
-            if(myOrder.getIsTax() == 1) {
-                orderTotal += (String.format("%27s %17.1f\n","Cong:",myOrder.getGrandTotal_beforeTax()));
-                orderTotal += (String.format("%27s %17.1f\n","Thue:", myOrder.getTax()));
-            }
-
-            orderTotal +=(String.format("%27s %17.1f\n","Tong Cong:" ,myOrder.getGrandTotal()));
-            orderTotal += ("----------------------------------------------\n");
-            BluetoothPrintDriver.BT_Write(orderTotal);
-
-            BluetoothPrintDriver.CR();
-            BluetoothPrintDriver.SetAlignMode((byte)0x01);
-           // BluetoothPrintDriver.BT_Write(new byte[]{(byte)0x0A}); // new line
-           // BluetoothPrintDriver.BT_Write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
-            BluetoothPrintDriver.BT_Write("Cam on va hen gap lai quy khach");
-            BluetoothPrintDriver.CR();
-            BluetoothPrintDriver.CR();
-            BluetoothPrintDriver.CR();
-            BluetoothPrintDriver.CR();
-*/
-           /* mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});*/
-           // String PRINTME = printString + orderTotal;
-
-            // BluetoothPrintDriver.CR();
-          //  BluetoothPrintDriver.StatusInquiry();
-
-           /* mmOutputStream.flush();
-            // the text typed by the user
-            DateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-            Date today = new Date();
-            String s = dateFormatter.format(today);
-            String header = "COM Ga KHANH KY\n";
-            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
-            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x08 } ); //bold
-            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x20 } ); //width
-            mmOutputStream.write(header.getBytes());
-
-            header = "61 Tran Quang Dieu \n" ;
-            header += (s + "\n") ;
-            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
-            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x00 } ); //default
-            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x08 } ); //bold
-            mmOutputStream.write(header.getBytes());
-
-
-            mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
-
-          //  mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x08 } ); //bold
-            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x20 } ); //width
-            mmOutputStream.write(String.format("PHIEU TINH TIEN\n").getBytes());
-            mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
-
-
-            mmOutputStream.write(String.format("So Ban: ").getBytes());
-            mmOutputStream.write(Integer.toString(myOrder.getTableNumber()).getBytes());
-            String printString ="";
-            int i =0;
-            ArrayList<Item> localOrder = myOrder.getItemList();
-            String label = String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n");
-            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x00 } ); //left justification
-            mmOutputStream.write( new byte[]{ 0x1b, 0x21, 0x00 } );
-            mmOutputStream.write(label.getBytes());
-            mmOutputStream.write(String.format("----------------------------------------------\n").getBytes());
-
-            String orderDetails;
-            for(Item temp: localOrder) {
-                orderDetails = String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getName(),
-                        localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal());
-
-                mmOutputStream.write(orderDetails.getBytes());
-                i++;
-            }
-
-            //Fix this later
-            myOrder.CalculateTotal();
-            String orderTotal="";// = "Total: " + Double.toString(myOrder.getGrandTotal()) + "\n";
-
-            orderTotal += ("----------------------------------------------\n");
-            if(myOrder.getIsTax() == 1) {
-                orderTotal += (String.format("%25s %17.1f\n","Cong:",myOrder.getGrandTotal_beforeTax()));
-                orderTotal += (String.format("%25s %17.1f\n","Thue:", myOrder.getTax()));
-            }
-
-            orderTotal +=(String.format("%25s %17.1f\n","Tong Cong:" ,myOrder.getGrandTotal()));
-            orderTotal += ("----------------------------------------------\n");
-            mmOutputStream.write(orderTotal.getBytes());
-
-            mmOutputStream.write(new byte[]{(byte)0x0A}); // new line
-            mmOutputStream.write( new byte[]{ 0x1b, 0x61, 0x01 } ); //center
-            mmOutputStream.write("Cam on va hen gap lai quy khach".getBytes());
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-            mmOutputStream.write(new byte[]{(byte)0x0A});
-
-            String PRINTME = printString + orderTotal;
-
-
-
-
-            Toast.makeText(getApplicationContext(), "sendData", Toast.LENGTH_SHORT).show();
-
-            // tell the user data were sent
-            mmOutputStream.flush();
-              myLabel.setText("Data sent.");*/
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -972,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv0 = new TextView(this);
         tv0.setText(R.string.num_table_header);
-        tv0.setMinWidth(30);
+        tv0.setMinWidth(25);
         tv0.setTextColor(Color.WHITE);
         tbrow0.addView(tv0);
         TextView tv1 = new TextView(this);
@@ -1006,7 +617,7 @@ public class MainActivity extends AppCompatActivity {
             tbrow.addView(t1v);
             TextView t2v = new TextView(this);
             t2v.setText(cn.getName());
-            t2v.setTextSize(20);
+            t2v.setTextSize(23);
             t2v.setTextColor(Color.WHITE);
             t2v.setGravity(Gravity.CENTER);
             tbrow.addView(t2v);

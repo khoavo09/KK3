@@ -107,7 +107,7 @@
             android:maxLength="3"
             android:textColor="#000"
             android:textSize="15sp"
-            android:text="118"
+            android:text="87"
             android:hint="0" />
     </RelativeLayout>
 

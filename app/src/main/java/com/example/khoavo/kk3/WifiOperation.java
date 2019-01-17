@@ -32,7 +32,6 @@ public class WifiOperation implements PrinterOperation{
         }
     }
 
-    //每隔10s检查一次状态。能检查到就证明连接正常。否则再查一次。还不行就断开连接
     private TimerTask myTask = new TimerTask() {
         byte[] writeData = new byte[]{0x10, 0x04, 0x01};
         @Override

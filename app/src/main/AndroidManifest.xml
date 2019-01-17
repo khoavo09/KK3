@@ -28,6 +28,7 @@
             android:name=".EditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".DeviceListActivity" />
+        <activity android:name=".BluetoothDeviceList" />
         <activity android:name=".IP_AddressEdit"></activity>
     </application>
 

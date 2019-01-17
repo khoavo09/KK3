@@ -5,7 +5,7 @@
     <string name="table_number_edit_text">Table Number</string>
     <string name="table_number_reminder_text">Table Number?</string>
     <string name="submit_button">Submit</string>
-    <string name="connect_button">Connect Wifi</string>
+    <string name="connect_button">Connect Bluetooth</string>
     <string name="print_button">Print</string>
     <string name="edit_button">Edit</string>
     <string name="tax_label">Tax</string>
@@ -32,4 +32,18 @@
     <!-- EditActivity strings -->
     <string name="how_to_delete_text">Enter 0.0 into the unit price to delete an item</string>
     <string name="no_accent_marks">Do not enter any accent marks!</string>
+
+
+    <string name="scanning">Scanning for devices...</string>
+    <string name="select_device">Please select a device to connect</string>
+    <string name="none_paired">No devices has been paired</string>
+    <string name="has_paired">paired</string>
+    <string name="not_paired">not paired</string>
+    <string name="rePaire_connect">Re-pair And Connect</string>
+    <string name="unpair">Unpair</string>
+    <string name="paire_connect">Pair And Connect</string>
+    <string name="connect_paired">Connect</string>
+    <string name="select_options">Select Options</string>
+    <string name="none_found">No devices found</string>
+    <string name="no_bounded_device">Don\'t found device which name start with %s</string>
 </resources>

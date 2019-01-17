@@ -3,7 +3,7 @@
     <string name="app_name">Khánh Kỳ</string>
     <string name="table_number_edit_text">Số Bàn</string>
     <string name="submit_button">Chấp thuận</string>
-    <string name="connect_button">Kết nối WIFI</string>
+    <string name="connect_button">Kết nối Bluetooth</string>
     <string name="print_button">In</string>
     <string name="edit_button">Chỉnh Sửa</string>
     <string name="tax_label">Thuế</string>
@@ -29,4 +29,17 @@
     <string name="connect">Kết nối</string>
     <string name="disconnect">Dừng kết nối</string>
     <string name="no_accent_marks">Đừng bỏ dấu vào tên khi thêm món ăn vào thực đơn!!</string>
+
+    <string name="scanning">Scanning for devices...</string>
+    <string name="select_device">Please select a device to connect</string>
+    <string name="none_paired">No devices has been paired</string>
+    <string name="has_paired">paired</string>
+    <string name="not_paired">not paired</string>
+    <string name="rePaire_connect">Re-pair And Connect</string>
+    <string name="unpair">Unpair</string>
+    <string name="paire_connect">Pair And Connect</string>
+    <string name="connect_paired">Connect</string>
+    <string name="select_options">Select Options</string>
+    <string name="none_found">No devices found</string>
+    <string name="no_bounded_device">Don\'t found device which name start with %s</string>
 </resources>

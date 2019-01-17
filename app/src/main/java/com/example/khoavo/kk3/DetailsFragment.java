@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothSocket;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,20 +74,25 @@ public class DetailsFragment extends Fragment {
             Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Consolas.ttf");
             ArrayList<Item> localOrder = myOrder.getItemList();
             detailsTextView = (TextView)v.findViewById(R.id.textViewDetails);
-            detailsTextView.setTextSize(17);
+            detailsTextView.setTextSize(19);
             detailsTextView.setTypeface(tf);
-            detailsTextView.append(String.format("%-5s%-20s%5s%4s%10s", "STT","Ten Hang", "DG", "SL", "T.Tien\n\n"));
+            detailsTextView.append(String.format("%-3s%-21s%5s%4s%11s", "STT","  Ten Hang", "DG", "SL", "T.Tien\n\n"));
             for(int i=0; i < localOrder.size();i++)
-                detailsTextView.append(String.format("%-5d%-20s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getCleanName(),
+                detailsTextView.append(String.format("%-3d%-21s%5.1f%4d%9.1f\n",i+1, localOrder.get(i).getCleanName(),
                         localOrder.get(i).getPrice(),localOrder.get(i).getAmount(),localOrder.get(i).getSubTotal()));
 
-            detailsTextView.append("--------------------------------------------\n");
-            if(myOrder.getIsTax() == 1) {
-                detailsTextView.append(String.format("%25s %17.1f\n","Cong:", myOrder.getGrandTotal_beforeTax()));
-                detailsTextView.append(String.format("%25s %17.1f\n","Thue:", myOrder.getTax()));
-            }
+            detailsTextView.append("------------------------------------------\n");
 
-            detailsTextView.append(String.format("%25s %17.1f\n","Tong Cong:", myOrder.getGrandTotal()));
+
+            if(myOrder.getIsTax() == 1) {
+                detailsTextView.append(String.format("%22s %17.1f\n","Cong:", myOrder.getGrandTotal_beforeTax()));
+                detailsTextView.append(String.format("%22s %17.1f\n","Thue:", myOrder.getTax()));
+            }
+            String s = String.format("%17s %10.1f\n","Tong Cong:", myOrder.getGrandTotal());
+            SpannableString ss1=  new SpannableString(s);
+            ss1.setSpan(new RelativeSizeSpan(1.45f), 0,s.length(), 0);
+            detailsTextView.append(ss1);
+           // detailsTextView.append(String.format("%22s %17.1f\n","Tong Cong:", myOrder.getGrandTotal()));
         }
     // put all the display crap here
     }
